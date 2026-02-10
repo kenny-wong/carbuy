@@ -37,20 +37,21 @@
 
 /* Pochacco Theme */
 [data-theme="pochacco"] {
-  --primary: #eccc68;
-  /* Light Yellow */
-  --secondary: #2ed573;
-  /* Green */
-  --text-dark: #2f3542;
-  --text-light: #57606f;
-  --bg-gradient: linear-gradient(135deg, #f1f2f6 0%, #7bed9f 100%);
-  --card-bg: #ffffff;
-  --border-color: #7bed9f;
-  --success: #2ed573;
-  --danger: #ff4757;
+  --primary: #48C9B0;
+  /* Mint Teal */
+  --secondary: #1A2D2A;
+  /* Dark Grey/Green */
+  --text-dark: #1A2D2A;
+  --text-light: #5F7D7A;
+  --bg-gradient: linear-gradient(135deg, #E0F7FA 0%, #B2DFDB 100%);
+  /* Light Mint Gradient */
+  --card-bg: #F0FBF9;
+  --border-color: #48C9B0;
+  --success: #26A69A;
+  --danger: #EF5350;
   --character-img: url('images/pochacco.png');
-  --btn-bg: #2ed573;
-  --btn-text: #ffffff;
+  --btn-bg: #48C9B0;
+  --btn-text: #FFFFFF;
 }
 
 /* Kuromi Theme */
@@ -108,11 +109,11 @@ body {
   min-height: 100vh;
 }
 
-/* Character Overlay - Applied to whole background more prominently */
+/* Character Overlay */
 body::after {
   content: "";
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
   right: 20px;
   width: 350px;
   height: 350px;
@@ -332,7 +333,7 @@ input[type=range] {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
-  /* Ensure grid items stretch to fill row height */
+  /* Ensure items fill height */
   align-items: stretch;
 }
 
@@ -347,7 +348,7 @@ input[type=range] {
   display: flex;
   flex-direction: column;
   height: 100%;
-  /* Fill the grid cell height */
+  /* Force height to match grid row */
 }
 
 .card:hover {
@@ -393,9 +394,9 @@ input[type=range] {
 .card-content {
   padding: 1.5rem;
   flex-grow: 1;
+  /* Occupy remaining space */
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .card-title {
@@ -418,6 +419,8 @@ input[type=range] {
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
+  flex-grow: 1;
+  /* Push button to bottom if brief is short */
 }
 
 .spec-item {
@@ -439,7 +442,7 @@ input[type=range] {
 
 .btn-view {
   margin-top: auto;
-  /* Push to bottom */
+  /* Ensure it stays at the bottom */
   display: block;
   text-align: center;
   background: var(--btn-bg);
@@ -450,6 +453,8 @@ input[type=range] {
   font-weight: 600;
   transition: background 0.2s ease, transform 0.1s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  /* Ensure full width button */
 }
 
 .btn-view:hover {
