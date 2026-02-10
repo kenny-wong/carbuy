@@ -1,11 +1,17 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_ANON_KEY
-);
-
 module.exports = async (req, res) => {
+    // Initialize Supabase client inside handler
+    const supabaseUrl = (process.env.SUPABASE_URL || '').trim();
+    const supabaseKey = (process.env.SUPABASE_ANON_KEY || '').trim();
+
+    if (!supabaseUrl || !supabaseKey) {
+        console.error('Missing SUPABASE_URL or SUPABASE_ANON_KEY');
+        return res.status(500).json({ error: 'Database configuration missing' });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
