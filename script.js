@@ -13,20 +13,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortBy = document.getElementById('sort-by');
     const themeSelect = document.getElementById('theme-select');
 
+    // Login Elements
+    const loginModal = document.getElementById('login-modal');
+    const userSelect = document.getElementById('user-select');
+    const secretInputContainer = document.getElementById('secret-input-container');
+    const userSecret = document.getElementById('user-secret');
+    const btnLogin = document.getElementById('btn-login');
+    const loginError = document.getElementById('login-error');
+
+    // Member Config
+    const familyMembers = {
+        'Kenny': { secret: 'XO', theme: 'xo' },
+        'Gubie': { secret: 'Pochacco', theme: 'pochacco' },
+        'Hayley': { secret: 'Kuromi', theme: 'kuromi' },
+        'Chloe': { secret: 'Hello Kitty', theme: 'hello-kitty' }
+    };
+
     // Theme Logic
     const themes = ['original', 'xo', 'pochacco', 'kuromi', 'hello-kitty'];
 
     function initTheme() {
         let savedTheme = localStorage.getItem('carbuy-theme');
+        const currentUser = localStorage.getItem('carbuy-user');
 
-        if (!savedTheme) {
-            // First time visit: Pick random theme
+        if (currentUser && familyMembers[currentUser]) {
+            savedTheme = familyMembers[currentUser].theme;
+            loginModal.classList.remove('active');
+        } else if (!savedTheme) {
+            // First time visit: Show login modal
+            loginModal.classList.add('active');
+            // Pick random theme as a background while logging in
             const randomIndex = Math.floor(Math.random() * themes.length);
             savedTheme = themes[randomIndex];
             localStorage.setItem('carbuy-theme', savedTheme);
+        } else if (!currentUser) {
+            // No user, show login
+            loginModal.classList.add('active');
         }
 
-        applyTheme(savedTheme);
+        applyTheme(savedTheme || 'original');
     }
 
     function applyTheme(theme) {
@@ -43,6 +68,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Theme immediately
     initTheme();
+
+    // Login Event Listeners
+    userSelect.addEventListener('change', () => {
+        secretInputContainer.style.display = 'block';
+        loginError.style.display = 'none';
+        userSecret.value = '';
+        userSecret.focus();
+    });
+
+    async function handleLogin() {
+        const selectedUser = userSelect.value;
+        const enteredSecret = userSecret.value.trim();
+
+        if (!selectedUser || !familyMembers[selectedUser]) return;
+
+        // case-insensitive secret check
+        if (enteredSecret.toLowerCase() === familyMembers[selectedUser].secret.toLowerCase()) {
+            const selectedTheme = familyMembers[selectedUser].theme;
+
+            // 1. Store in LocalStorage
+            localStorage.setItem('carbuy-user', selectedUser);
+            localStorage.setItem('carbuy-theme', selectedTheme);
+
+            // 2. Apply theme
+            applyTheme(selectedTheme);
+
+            // 3. Log Audit to DB
+            try {
+                await fetch('/api/audit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_name: selectedUser,
+                        selected_theme: selectedTheme
+                    })
+                });
+            } catch (err) {
+                console.error('Audit failed:', err);
+            }
+
+            // 4. Close Modal
+            loginModal.classList.remove('active');
+        } else {
+            loginError.style.display = 'block';
+        }
+    }
+
+    btnLogin.addEventListener('click', handleLogin);
+    userSecret.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleLogin();
+    });
 
     let allCars = [];
     let filteredCars = [];

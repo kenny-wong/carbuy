@@ -482,3 +482,86 @@ input[type=range] {
     height: 200px;
   }
 }
+
+/* Login Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.login-box {
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.modal-overlay.active .login-box {
+  transform: translateY(0);
+}
+
+.login-box h2 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+  font-size: 1.8rem;
+}
+
+.login-box p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+.login-box select,
+.login-box input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.login-box select:focus,
+.login-box input:focus {
+  border-color: var(--primary);
+}
+
+.login-box button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  color: #ff4757;
+  font-size: 0.95rem;
+  margin-top: 15px;
+  font-weight: 500;
+}
