@@ -72,3 +72,22 @@ The dashboard expects `car_data.json` to follow this structure:
   }
 ]
 ```
+
+## ☁️ Vercel & Supabase Setup
+
+To deploy this project with a live database:
+
+### 1. Database Setup (Supabase)
+1.  Create a new project on [Supabase](https://supabase.com).
+2.  Go to the **SQL Editor** in your Supabase dashboard.
+3.  Copy and run the contents of `schema.sql` to create the table.
+4.  Copy and run the contents of `seed.sql` to import existing car data.
+
+### 2. Deployment (Vercel)
+1.  Install Vercel CLI: `npm install -g vercel` (or use `npx vercel`).
+2.  Run `npx vercel` in the project root and follow the prompts.
+3.  **Environment Variables**: Go to your Vercel Project Settings > Environment Variables and add:
+    -   `SUPABASE_URL`: Your Supabase Project URL.
+    -   `SUPABASE_ANON_KEY`: Your Supabase Anon/Public Key.
+
+Once deployed, the `script.js` will automatically switch to fetching data from your Supabase database via the `/api/cars` endpoint.

@@ -49,12 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize
     async function init() {
+        let rawData;
         try {
+            // Try fetching from Vercel API
+            const response = await fetch('/api/cars');
+            if (!response.ok) throw new Error('API unavailable');
+            rawData = await response.json();
+        } catch (error) {
+            console.warn('API failed, falling back to local JSON:', error);
+            // Fallback to local JSON
             const response = await fetch('./car_data.json');
             if (!response.ok) throw new Error('Failed to load vehicle data');
-
-            const rawData = await response.json();
-            // Remove unavailable cars immediately
+            rawData = await response.json();
+        }
+        // Remove unavailable cars immediately
+        try {
             allCars = rawData.filter(car => car.title !== "Unavailable" && car.price !== null);
             filteredCars = [...allCars];
 
