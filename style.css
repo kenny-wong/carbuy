@@ -342,8 +342,9 @@ header {
 
 /* Voter Bubbles */
 .voter-bubble {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  /* Slightly larger for images */
+  height: 32px;
   border-radius: 50%;
   border: 2px solid #fff;
   background: var(--primary);
@@ -351,26 +352,38 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-transform: uppercase;
+  overflow: hidden;
+  /* For images */
+  position: relative;
 }
 
-.voter-bubble.kenny {
+.voter-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.voter-bubble.xo {
   background: #34495e;
 }
 
-.voter-bubble.gubie {
+.voter-bubble.pochacco {
   background: #2ecc71;
 }
 
-.voter-bubble.hayley {
+.voter-bubble.kuromi {
   background: #9b59b6;
 }
 
-.voter-bubble.chloe {
-  background: #f1c40f;
+.voter-bubble.hello-kitty {
+  background: #ff4757;
 }
 
 /* Voting UI on Cards */
