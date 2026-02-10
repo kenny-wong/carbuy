@@ -52,4 +52,22 @@ CREATE POLICY "Allow public toggle vote" ON public.votes
 CREATE POLICY "Allow public read votes" ON public.votes
     FOR SELECT USING (true);
 
+-- Create presence table
+CREATE TABLE IF NOT EXISTS public.presence (
+    user_name TEXT PRIMARY KEY,
+    last_seen TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
 
+-- Enable RLS for presence
+ALTER TABLE public.presence ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read access
+CREATE POLICY "Allow public read presence" ON public.presence
+    FOR SELECT USING (true);
+
+-- Allow public upsert/update for heartbeats
+CREATE POLICY "Allow public presence update" ON public.presence
+    FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow public presence refresh" ON public.presence
+    FOR UPDATE USING (true) WITH CHECK (true);
