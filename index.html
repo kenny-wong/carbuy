@@ -15,83 +15,89 @@
     <div class="app-container">
         <header>
             <div class="header-content">
-                <h1>程晞大家庭 - 買車</h1>
-                <p>Real-time market analysis dashboard</p>
-            </div>
-
-            <div class="header-controls">
-                <div class="theme-selector">
-                    <label for="theme-select">Theme</label>
-                    <div class="select-wrapper">
-                        <select id="theme-select">
-                            <option value="original">Original</option>
-                            <option value="xo">XO (Bad Badtz-Maru)</option>
-                            <option value="pochacco">Pochacco</option>
-                            <option value="kuromi">Kuromi</option>
-                            <option value="hello-kitty">Hello Kitty</option>
-                        </select>
+                <h1 id="main-title">程晞大家庭 - 買車</h1>
+                <div class="header-controls">
+                    <select id="theme-select" class="theme-dropdown">
+                        <option value="original">Original Theme</option>
+                        <option value="xo">XO (Bad Badtz-Maru)</option>
+                        <option value="pochacco">Pochacco</option>
+                        <option value="kuromi">Kuromi</option>
+                        <option value="hello-kitty">Hello Kitty</option>
+                    </select>
+                    <div class="stats" id="stats-bar">
+                        <span>Total: <strong id="total-count">0</strong></span>
+                        <span>Avg Price: <strong id="avg-price">£0</strong></span>
                     </div>
-                </div>
-                <div class="stats-bar" id="stats-bar">
-                    <!-- Stats will be injected here -->
                 </div>
             </div>
         </header>
 
-        <main>
-            <section class="filter-bar">
-                <div class="filter-group">
-                    <label for="model-filter">Model</label>
-                    <div class="select-wrapper">
-                        <select id="model-filter">
-                            <option value="">All Models</option>
-                        </select>
+        <div class="app-layout">
+            <!-- Sidebar Leaderboard -->
+            <aside class="sidebar">
+                <div class="leaderboard-card">
+                    <h3>🏆 Top Rated Cars</h3>
+                    <div id="leaderboard-list">
+                        <p class="empty">No votes yet</p>
                     </div>
                 </div>
+            </aside>
 
-                <div class="filter-group">
-                    <label for="engine-filter">Engine</label>
-                    <div class="select-wrapper">
-                        <select id="engine-filter">
-                            <option value="">All Engines</option>
-                        </select>
+            <main class="main-content">
+                <section class="filter-bar">
+                    <div class="filter-group">
+                        <label for="model-filter">Model</label>
+                        <div class="select-wrapper">
+                            <select id="model-filter">
+                                <option value="">All Models</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="filter-group">
-                    <label for="sort-by">Sort By</label>
-                    <div class="select-wrapper">
-                        <select id="sort-by">
-                            <option value="price-asc">Price: Low to High</option>
-                            <option value="price-desc">Price: High to Low</option>
-                            <option value="mileage-asc">Mileage: Low to High</option>
-                            <option value="mileage-desc">Mileage: High to Low</option>
-                            <option value="model-asc">Model: A-Z</option>
-                        </select>
+                    <div class="filter-group">
+                        <label for="engine-filter">Engine</label>
+                        <div class="select-wrapper">
+                            <select id="engine-filter">
+                                <option value="">All Engines</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="filter-group range-group">
-                    <div class="range-header">
-                        <label>Max Price</label>
-                        <span id="price-display">£10,000</span>
+                    <div class="filter-group">
+                        <label for="sort-by">Sort By</label>
+                        <div class="select-wrapper">
+                            <select id="sort-by">
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="mileage-asc">Mileage: Low to High</option>
+                                <option value="mileage-desc">Mileage: High to Low</option>
+                                <option value="model-asc">Model: A-Z</option>
+                            </select>
+                        </div>
                     </div>
-                    <input type="range" id="price-range" min="0" max="20000" step="100">
-                </div>
 
-                <div class="filter-group range-group">
-                    <div class="range-header">
-                        <label>Max Mileage</label>
-                        <span id="mileage-display">100k miles</span>
+                    <div class="filter-group range-group">
+                        <div class="range-header">
+                            <label>Max Price</label>
+                            <span id="price-display">£10,000</span>
+                        </div>
+                        <input type="range" id="price-range" min="0" max="20000" step="100">
                     </div>
-                    <input type="range" id="mileage-range" min="0" max="150000" step="1000">
-                </div>
-            </section>
 
-            <section class="listings-grid" id="listings-container">
-                <!-- Cards will be injected here via JS -->
-            </section>
-        </main>
+                    <div class="filter-group range-group">
+                        <div class="range-header">
+                            <label>Max Mileage</label>
+                            <span id="mileage-display">100k miles</span>
+                        </div>
+                        <input type="range" id="mileage-range" min="0" max="150000" step="1000">
+                    </div>
+                </section>
+
+                <section class="listings-grid" id="listings-container">
+                    <!-- Cards will be injected here via JS -->
+                </section>
+            </main>
+        </div>
     </div>
 
     <!-- Login Modal -->
