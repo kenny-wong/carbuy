@@ -822,6 +822,10 @@ input[type=range] {
     align-items: stretch;
     gap: 0.8rem;
     padding: 1rem;
+    width: 100%;
+    /* Force full width */
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .filter-group {
@@ -840,12 +844,16 @@ input[type=range] {
   }
 
   .range-filters-container {
-    flex-direction: column;
+    flex-direction: row;
+    /* Keep horizontal on mobile */
     gap: 0.8rem;
+    width: 100%;
   }
 
   .range-filter {
     padding: 0.8rem;
+    flex: 1;
+    /* Equal width for both filters */
   }
 
   .range-filter label {
@@ -858,9 +866,16 @@ input[type=range] {
 
   /* Card grid responsive - 2 columns */
   .car-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
+    /* Force 2 columns */
     gap: 1rem;
     padding: 0 1rem;
+  }
+
+  .listings-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    /* Also fix listings-grid */
+    gap: 1rem;
   }
 
   /* Make cards more compact on mobile */
