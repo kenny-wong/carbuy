@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize
     async function init() {
         try {
-            const response = await fetch('./autotrader_data.json');
+            const response = await fetch('./car_data.json');
             if (!response.ok) throw new Error('Failed to load vehicle data');
 
             const rawData = await response.json();
