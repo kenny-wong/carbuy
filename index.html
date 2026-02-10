@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoTrader UK Data Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <h1>AutoTrader <span class="highlight">Insights</span></h1>
+                <p>Real-time market analysis dashboard</p>
+            </div>
+            <div class="stats-bar" id="stats-bar">
+                <!-- Stats will be injected here -->
+            </div>
+        </header>
+
+        <main>
+            <aside class="filters">
+                <div class="filter-group">
+                    <h3>Filter by Status</h3>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="available-only" checked>
+                        <span class="checkmark"></span>
+                        Show Available Only
+                    </label>
+                </div>
+                
+                <div class="filter-group">
+                    <h3>Price Range</h3>
+                    <div class="range-slider">
+                        <input type="range" id="price-range" min="0" max="10000" step="100" value="10000">
+                        <span id="price-display">Max: £10,000</span>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Mileage</h3>
+                    <div class="range-slider">
+                        <input type="range" id="mileage-range" min="0" max="100000" step="1000" value="100000">
+                        <span id="mileage-display">Max: 100,000 miles</span>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="listings-grid" id="listings-container">
+                <!-- Cards will be injected here via JS -->
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
