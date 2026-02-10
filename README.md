@@ -1,21 +1,23 @@
-# AutoTrader Data Dashboard
+# Car Buying Dashboard
 
-A dynamic, responsive dashboard for visualizing and filtering AutoTrader UK car listings. This project fetches live data from `autotrader_data.json` and presents it in a premium, user-friendly interface.
+A dynamic, responsive dashboard for visualizing and filtering car listings. This project fetches live data from `car_data.json` and presents it in a premium, user-friendly interface.
 
 ## Features
 
 - **Dynamic Data Loading**: Fetches real-time JSON data without page reloads.
-- **Interactive Filtering**: Filter by price range, mileage, and availability status.
+- **Interactive Filtering**: Filter by Model, Engine, Price range, and Mileage.
+- **Sorting**: Sort listings by price, mileage, or model name.
+- **Theme Selection**: Choose from multiple themes including Original, XO, Pochacco, Kuromi, and Hello Kitty.
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices.
 - **Premium UI**: Modern card layout with vibrant colors and smooth transitions.
-- **Detailed Analytics**: Real-time stats bar showing total listings, available cars, and average price.
+- **Detailed Analytics**: Real-time stats bar showing total listings and average price.
 
 ## Tech Stack
 
 - **HTML5**: Semantic markup for structure.
 - **CSS3**: Custom styling with Flexbox/Grid, CSS Variables, and animations.
 - **JavaScript (ES6+)**: Vanilla JS for logic, DOM manipulation, and data fetching.
-- **Data**: JSON format (`autotrader_data.json`).
+- **Data**: JSON format (`car_data.json`).
 
 ## Local Development
 
@@ -51,7 +53,7 @@ This project is designed to be hosted on **GitHub Pages**.
 
 ## Data Structure
 
-The dashboard expects `autotrader_data.json` to follow this structure:
+The dashboard expects `car_data.json` to follow this structure:
 
 ```json
 [

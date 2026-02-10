@@ -1,6 +1,6 @@
 import json
 
-file_path = r'c:\Users\kaiya\github\carbuy\autotrader_data.json'
+file_path = r'c:\Users\kaiya\github\carbuy\car_data.json'
 
 new_cars = [
     {
