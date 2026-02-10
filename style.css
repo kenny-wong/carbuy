@@ -164,10 +164,63 @@ header {
 
 #main-title {
   font-size: 2.2rem;
-  /* slightly larger */
   font-weight: 800;
   color: var(--secondary);
   letter-spacing: -0.5px;
+}
+
+.title-area {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-display {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 6px 16px;
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.user-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f1f2f6;
+  border: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-icon-small {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#user-name-tag {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--secondary);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .header-controls {
@@ -387,11 +440,29 @@ header {
   /* space before grid */
 }
 
+.range-filters-container {
+  display: flex;
+  gap: 2.5rem;
+  flex: 2 1 500px;
+  /* Group takes more space */
+}
+
+@media (max-width: 900px) {
+  .range-filters-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
 .filter-group {
   flex: 1 1 200px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.range-filters-container .range-group {
+  flex: 1;
 }
 
 .filter-group label {
