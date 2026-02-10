@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const engineFilter = document.getElementById('engine-filter');
     const sortBy = document.getElementById('sort-by');
     const themeSelect = document.getElementById('theme-select');
+    const leaderboardList = document.getElementById('leaderboard-list');
 
     // Login Elements
     const loginModal = document.getElementById('login-modal');
@@ -122,6 +123,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allCars = [];
     let filteredCars = [];
+    let allVotes = [];
+
+    async function fetchVotes() {
+        try {
+            const response = await fetch('/api/votes');
+            if (response.ok) {
+                allVotes = await response.json();
+                renderLeaderboard();
+                renderListings();
+            }
+        } catch (error) {
+            console.error('Failed to fetch votes:', error);
+        }
+    }
+
+    async function toggleVote(car_url) {
+        const currentUser = localStorage.getItem('carbuy-user');
+        if (!currentUser) {
+            loginModal.classList.add('active');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/votes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ car_url, user_name: currentUser })
+            });
+            if (response.ok) {
+                await fetchVotes(); // Refresh votes
+            }
+        } catch (error) {
+            console.error('Vote toggle failed:', error);
+        }
+    }
+
+    function renderLeaderboard() {
+        const voteCounts = {};
+        allVotes.forEach(v => {
+            voteCounts[v.car_url] = (voteCounts[v.car_url] || 0) + 1;
+        });
+
+        // Map counts back to car details
+        const rankedCars = Object.keys(voteCounts).map(url => {
+            const car = allCars.find(c => c.url === url);
+            return {
+                url,
+                count: voteCounts[url],
+                title: car ? car.title : 'Unknown Car',
+                voters: allVotes.filter(v => v.car_url === url).map(v => v.user_name)
+            };
+        }).sort((a, b) => b.count - a.count).slice(0, 10);
+
+        if (rankedCars.length === 0) {
+            leaderboardList.innerHTML = '<p class="empty">No votes yet</p>';
+            return;
+        }
+
+        leaderboardList.innerHTML = rankedCars.map((car, index) => `
+            <div class="leaderboard-item">
+                <span class="rank">#${index + 1}</span>
+                <div class="lb-car-info">
+                    <span class="lb-car-title">${car.title}</span>
+                    <div class="lb-voters">
+                        ${car.voters.map(v => `<div class="voter-bubble ${v.toLowerCase()}" title="${v}">${v[0]}</div>`).join('')}
+                    </div>
+                </div>
+                <div class="lb-count"><strong>${car.count}</strong></div>
+            </div>
+        `).join('');
+    }
 
     // Initialize
     async function init() {
@@ -156,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mileageDisplay.textContent = `${maxMileage.toLocaleString()} miles`;
 
             populateDropdowns();
+            await fetchVotes();
             applyFilters(); // Initial render with specific sort if needed
 
         } catch (error) {
@@ -224,6 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filteredCars.forEach(car => {
             const image = car.image_url || 'https://via.placeholder.com/400x300?text=No+Image';
+            const carVotes = allVotes.filter(v => v.car_url === car.url);
+            const currentUser = localStorage.getItem('carbuy-user');
+            const hasVoted = carVotes.some(v => v.user_name === currentUser);
 
             const card = document.createElement('article');
             card.className = 'card';
@@ -251,9 +327,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                     
-                    <a href="${car.url}" target="_blank" rel="noopener noreferrer" class="btn-view">View Listing</a>
+                    <div class="card-actions">
+                        <button class="btn-vote ${hasVoted ? 'active' : ''}" data-url="${car.url}">
+                            <i class="vote-icon">♥</i> ${hasVoted ? 'Voted' : 'Vote'}
+                        </button>
+                        <div class="card-voters">
+                            ${carVotes.map(v => `<div class="voter-bubble ${v.user_name.toLowerCase()}" title="${v.user_name}">${v.user_name[0]}</div>`).join('')}
+                        </div>
+                    </div>
+
+                    <a href="${car.url}" target="_blank" rel="noopener noreferrer" class="btn-view" style="margin-top: 1rem;">View Listing</a>
                 </div>
             `;
+
+            // Add listener to vote button
+            card.querySelector('.btn-vote').addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleVote(car.url);
+            });
+
             listingsContainer.appendChild(card);
         });
     }
