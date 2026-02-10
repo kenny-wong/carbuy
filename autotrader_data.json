@@ -2,7 +2,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202512218737311",
         "title": "2014 Ford B-Max",
-        "price": "£4,990",
+        "price": "\u00a34,990",
         "mileage": "44,287 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -11,7 +11,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202601199244933",
         "title": "2012 Nissan Juke",
-        "price": "£5,990",
+        "price": "\u00a35,990",
         "mileage": "37,717 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.5L Petrol",
@@ -20,7 +20,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202601269426880",
         "title": "2012 Mercedes-Benz B Class",
-        "price": "£6,495",
+        "price": "\u00a36,495",
         "mileage": "33,520 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -29,7 +29,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202503170255350",
         "title": "2013 Nissan Cube",
-        "price": "£6,495",
+        "price": "\u00a36,495",
         "mileage": "36,000 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -38,7 +38,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202509156347333",
         "title": "2013 Nissan Juke",
-        "price": "£6,495",
+        "price": "\u00a36,495",
         "mileage": "42,376 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -47,7 +47,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202601269425826",
         "title": "2014 Nissan Juke",
-        "price": "£6,949",
+        "price": "\u00a36,949",
         "mileage": "42,000 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -65,7 +65,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202511167931805",
         "title": "2012 Ford B-Max",
-        "price": "£5,620",
+        "price": "\u00a35,620",
         "mileage": "32,000 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -74,7 +74,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202511218057507",
         "title": "2014 Citroen C3 Picasso",
-        "price": "£6,199",
+        "price": "\u00a36,199",
         "mileage": "45,500 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
@@ -83,7 +83,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202512298823547",
         "title": "2014 Nissan Serena",
-        "price": "£7,250",
+        "price": "\u00a37,250",
         "mileage": "54,172 miles",
         "transmission": "Automatic",
         "engine_fuel": "2.0L Petrol Hybrid",
@@ -92,7 +92,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202512068426357",
         "title": "2013 Honda Jazz",
-        "price": "£5,990",
+        "price": "\u00a35,990",
         "mileage": "44,614 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.3L Petrol Hybrid",
@@ -101,7 +101,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202601239381264",
         "title": "2014 Honda Fit",
-        "price": "£6,999",
+        "price": "\u00a36,999",
         "mileage": "39,842 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.5L Petrol Hybrid",
@@ -110,7 +110,7 @@
     {
         "url": "https://www.autotrader.co.uk/car-details/202512298831654",
         "title": "2012 Nissan Note",
-        "price": "£5,490",
+        "price": "\u00a35,490",
         "mileage": "23,000 miles",
         "transmission": "Automatic",
         "engine_fuel": "1.2L Petrol",
@@ -124,5 +124,32 @@
         "transmission": null,
         "engine_fuel": null,
         "image_url": null
+    },
+    {
+        "url": "https://www.autotrader.co.uk/car-details/202601179228917",
+        "title": "2012 Mazda Mazda2",
+        "price": "\u00a35,390",
+        "mileage": "31,505 miles",
+        "transmission": "Automatic",
+        "engine_fuel": "1.3L Petrol",
+        "image_url": "https://m.atcdn.co.uk/a/media/w800/6b77f3dce90a482ab26a43342e8847a1.jpg"
+    },
+    {
+        "url": "https://www.autotrader.co.uk/car-details/202602089767547",
+        "title": "2014 Nissan Note",
+        "price": "\u00a36,285",
+        "mileage": "24,000 miles",
+        "transmission": "Automatic",
+        "engine_fuel": "1.2L Petrol",
+        "image_url": "https://m.atcdn.co.uk/a/media/w800/2558be3321fa4e7cb8e16a3dff37806c.jpg"
+    },
+    {
+        "url": "https://www.autotrader.co.uk/car-details/202602029619766",
+        "title": "2015 Nissan Note",
+        "price": "\u00a36,290",
+        "mileage": "37,209 miles",
+        "transmission": "Automatic",
+        "engine_fuel": "1.2L Petrol",
+        "image_url": "https://m.atcdn.co.uk/a/media/w800/e99eb5cc21b04573a406d4868f4904d3.jpg"
     }
 ]
