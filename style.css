@@ -767,6 +767,8 @@ input[type=range] {
     align-items: center;
     gap: 1rem;
     width: 100%;
+    flex-wrap: wrap;
+    /* Allow wrapping */
   }
 
   .title-area {
@@ -811,9 +813,26 @@ input[type=range] {
     font-size: 0.85rem;
   }
 
-  /* Hide sidebar on mobile */
+  /* Show sidebar on mobile - above filters */
   .sidebar {
-    display: none;
+    display: block;
+    width: 100%;
+    position: static;
+    order: -1;
+    /* Move before main content */
+  }
+
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    order: 1;
+  }
+
+  .leaderboard-card,
+  .presence-card {
+    margin-bottom: 1rem;
   }
 
   /* Filter bar responsive - more compact */
@@ -853,7 +872,8 @@ input[type=range] {
   .range-filter {
     padding: 0.8rem;
     flex: 1;
-    /* Equal width for both filters */
+    margin-bottom: 0;
+    /* Remove bottom gap */
   }
 
   .range-filter label {
@@ -864,17 +884,15 @@ input[type=range] {
     font-size: 0.9rem;
   }
 
-  /* Card grid responsive - 2 columns */
+  /* Card grid responsive - 1 column on very small screens */
   .car-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    /* Force 2 columns */
+    grid-template-columns: 1fr !important;
     gap: 1rem;
     padding: 0 1rem;
   }
 
   .listings-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    /* Also fix listings-grid */
+    grid-template-columns: 1fr !important;
     gap: 1rem;
   }
 
@@ -1004,4 +1022,24 @@ input[type=range] {
   font-size: 0.95rem;
   margin-top: 15px;
   font-weight: 500;
+}/* Medium mobile screens - 2 columns */
+@media (min-width: 480px) and (max-width: 768px) {
+    .car-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .listings-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Tablet screens - 3 columns */
+@media (min-width: 769px) and (max-width: 1100px) {
+    .car-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .listings-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
 }
