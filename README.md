@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Car Buying Dashboard
+=======
+# 程晞大家庭 - 買車
+>>>>>>> ef70d50ffd1a2d22f549ca2228760d5dbc8dc3ad
 
 A dynamic, responsive dashboard for visualizing and filtering car listings. This project fetches live data from `car_data.json` and presents it in a premium, user-friendly interface.
 
