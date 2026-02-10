@@ -94,6 +94,27 @@
         </main>
     </div>
 
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content login-box">
+            <h2>Welcome to 程晞大家庭</h2>
+            <p>Please select who you are:</p>
+            <select id="user-select">
+                <option value="" disabled selected>Select Member</option>
+                <option value="Kenny">Kenny</option>
+                <option value="Gubie">Gubie</option>
+                <option value="Hayley">Hayley</option>
+                <option value="Chloe">Chloe</option>
+            </select>
+            <div id="secret-input-container" style="display: none;">
+                <p>What Sanrio Character do you like?</p>
+                <input type="text" id="user-secret" placeholder="Character Name">
+                <button id="btn-login" class="btn-view">Login</button>
+                <p id="login-error" class="error-message" style="display: none;">Incorrect secret. Try again!</p>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
