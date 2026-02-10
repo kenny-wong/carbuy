@@ -59,21 +59,29 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUserDisplay(currentUser);
     }
 
+    function getUserIcon(userName) {
+        if (userName && familyMembers[userName]) {
+            const theme = familyMembers[userName].theme;
+            return `images/icons/${theme}.png`;
+        }
+        return '';
+    }
+
     function updateUserDisplay(user) {
         if (user && familyMembers[user]) {
             userDisplay.style.display = 'flex';
             userNameTag.textContent = user;
 
             const iconWrapper = userIcon.parentElement;
-            const iconName = user.toLowerCase().replace(/\s+/g, '-');
+            const iconPath = getUserIcon(user);
 
             // Reset wrapper
-            iconWrapper.className = 'user-icon-wrapper ' + iconName;
+            iconWrapper.className = 'user-icon-wrapper ' + familyMembers[user].theme;
             iconWrapper.textContent = '';
             iconWrapper.appendChild(userIcon);
 
             userIcon.style.display = 'none';
-            userIcon.src = `images/icons/${iconName}.png`;
+            userIcon.src = iconPath;
 
             userIcon.onerror = function () {
                 this.style.display = 'none';
@@ -225,7 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="lb-car-info">
                     <span class="lb-car-title">${car.title}</span>
                     <div class="lb-voters">
-                        ${car.voters.map(v => `<div class="voter-bubble ${v.toLowerCase()}" title="${v}">${v[0]}</div>`).join('')}
+                        ${car.voters.map(v => {
+            const icon = getUserIcon(v);
+            return `<div class="voter-bubble ${familyMembers[v]?.theme}" title="${v}">
+                                ${icon ? `<img src="${icon}" alt="${v}" class="voter-img" onerror="this.style.display='none'; this.parentElement.textContent='${v[0]}'">` : v[0]}
+                            </div>`;
+        }).join('')}
                     </div>
                 </div>
                 <div class="lb-count"><strong>${car.count}</strong></div>
@@ -370,7 +383,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             <i class="vote-icon">♥</i> ${hasVoted ? 'Voted' : 'Vote'}
                         </button>
                         <div class="card-voters">
-                            ${carVotes.map(v => `<div class="voter-bubble ${v.user_name.toLowerCase()}" title="${v.user_name}">${v.user_name[0]}</div>`).join('')}
+                            ${carVotes.map(v => {
+                const icon = getUserIcon(v.user_name);
+                return `<div class="voter-bubble ${familyMembers[v.user_name]?.theme}" title="${v.user_name}">
+                                    ${icon ? `<img src="${icon}" alt="${v.user_name}" class="voter-img" onerror="this.style.display='none'; this.parentElement.textContent='${v.user_name[0]}'">` : v.user_name[0]}
+                                </div>`;
+            }).join('')}
                         </div>
                     </div>
 
