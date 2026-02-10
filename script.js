@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userDisplay = document.getElementById('user-display');
     const userIcon = document.getElementById('user-icon');
     const userNameTag = document.getElementById('user-name-tag');
+    const presenceList = document.getElementById('presence-list');
 
     // Login Elements
     const loginModal = document.getElementById('login-modal');
@@ -155,7 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Update Header
             updateUserDisplay(selectedUser);
 
-            // 5. Close Modal
+            // 5. Start Presence Heartbeat immediately
+            sendHeartbeat();
+
+            // 6. Close Modal
             loginModal.classList.remove('active');
         } else {
             loginError.style.display = 'block';
@@ -246,6 +250,59 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
+    // --- Presence System ---
+    async function sendHeartbeat() {
+        const currentUser = localStorage.getItem('carbuy-user');
+        if (!currentUser) return;
+
+        try {
+            await fetch('/api/presence', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_name: currentUser })
+            });
+        } catch (error) {
+            console.error('Heartbeat failed:', error);
+        }
+    }
+
+    async function fetchPresence() {
+        try {
+            const response = await fetch('/api/presence');
+            if (response.ok) {
+                const presenceData = await response.json();
+                renderPresence(presenceData);
+            }
+        } catch (error) {
+            console.error('Failed to fetch presence:', error);
+        }
+    }
+
+    function renderPresence(users) {
+        if (!presenceList) return;
+
+        if (users.length === 0) {
+            presenceList.innerHTML = '<p class="empty">No one online</p>';
+            return;
+        }
+
+        presenceList.innerHTML = users.map(u => {
+            const icon = getUserIcon(u.user_name);
+            return `
+                <div class="online-user">
+                    <div class="voter-bubble ${familyMembers[u.user_name]?.theme || ''}" style="width: 24px; height: 24px; font-size: 0.6rem;">
+                        ${icon ? `<img src="${icon}" alt="${u.user_name}" class="voter-img">` : u.user_name[0]}
+                    </div>
+                    <span>${u.user_name}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Start Presence Cycles
+    setInterval(sendHeartbeat, 60000); // 60s heartbeat
+    setInterval(fetchPresence, 30000); // 30s refresh
+
     // Initialize
     async function init() {
         let rawData;
@@ -280,6 +337,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             populateDropdowns();
             await fetchVotes();
+
+            // Set default sort to Model if not already set by interaction
+            if (!sortBy.value) sortBy.value = 'model-asc';
+
             applyFilters(); // Initial render with specific sort if needed
 
         } catch (error) {
@@ -487,4 +548,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start App
     init();
+
+    // Initial presence fetch and heartbeat if logged in
+    fetchPresence();
+    if (localStorage.getItem('carbuy-user')) {
+        sendHeartbeat();
+    }
 });
