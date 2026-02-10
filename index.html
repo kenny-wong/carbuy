@@ -25,13 +25,16 @@
                             <span id="user-name-tag"></span>
                         </div>
                     </div>
-                    <select id="theme-select" class="theme-dropdown">
-                        <option value="original">Original Theme</option>
-                        <option value="xo">XO (Bad Badtz-Maru)</option>
-                        <option value="pochacco">Pochacco</option>
-                        <option value="kuromi">Kuromi</option>
-                        <option value="hello-kitty">Hello Kitty</option>
-                    </select>
+                    <div class="theme-selector">
+                        <label for="theme-select" id="theme-label">Theme:</label>
+                        <select id="theme-select" class="theme-dropdown">
+                            <option value="original">Original Theme</option>
+                            <option value="xo">XO (Bad Badtz-Maru)</option>
+                            <option value="pochacco">Pochacco</option>
+                            <option value="kuromi">Kuromi</option>
+                            <option value="hello-kitty">Hello Kitty</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="stats" id="stats-bar">
                     <span>Total: <strong id="total-count">0</strong></span>
@@ -47,6 +50,13 @@
                     <h3>🏆 Top Rated Cars</h3>
                     <div id="leaderboard-list">
                         <p class="empty">No votes yet</p>
+                    </div>
+                </div>
+
+                <div class="presence-card" id="presence-card" style="margin-top: 2rem;">
+                    <h3>🟢 Online Now</h3>
+                    <div id="presence-list" class="presence-list">
+                        <!-- Active users will be injected here -->
                     </div>
                 </div>
             </aside>
@@ -75,11 +85,11 @@
                         <label for="sort-by">Sort By</label>
                         <div class="select-wrapper">
                             <select id="sort-by">
+                                <option value="model-asc" selected>Model: A-Z</option>
                                 <option value="price-asc">Price: Low to High</option>
                                 <option value="price-desc">Price: High to Low</option>
                                 <option value="mileage-asc">Mileage: Low to High</option>
                                 <option value="mileage-desc">Mileage: High to Low</option>
-                                <option value="model-asc">Model: A-Z</option>
                             </select>
                         </div>
                     </div>
