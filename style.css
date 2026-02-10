@@ -12,85 +12,77 @@
   --border-color: #e1e1e1;
   --success: #2ed573;
   --danger: #ff6b81;
+  --character-img: none;
 }
 
-/* XO Theme (Bad Badtz-Maru) - Edgy, Black, Yellow */
+/* XO Theme (Bad Badtz-Maru) */
 [data-theme="xo"] {
   --primary: #FFD700;
   /* Yellow beak */
-  --secondary: #000000;
-  /* Black body */
+  --secondary: #2d3436;
+  /* Charcoal */
   --text-dark: #2d3436;
   --text-light: #636e72;
-  --bg-gradient: linear-gradient(135deg, #2d3436 0%, #000000 100%);
-  --card-bg: #f5f6fa;
-  --border-color: #444;
+  --bg-gradient: linear-gradient(135deg, #b2bec3 0%, #636e72 100%);
+  --card-bg: #ffffff;
+  --border-color: #2d3436;
   --success: #00b894;
   --danger: #d63031;
+  --character-img: url('https://upload.wikimedia.org/wikipedia/en/5/53/Badtz-Maru.png');
 }
 
-/* XO Specific Overrides */
-[data-theme="xo"] body {
-  color: #dfe6e9;
-  /* Light text for dark bg context if needed, but cards are white-ish */
-}
-
-[data-theme="xo"] .card-title {
-  color: #2d3436;
-}
-
-[data-theme="xo"] .header-content h1 {
-  color: #2d3436;
-  /* On white header */
-}
-
-/* Pochacco Theme - Sporty, Light Green, White */
+/* Pochacco Theme */
 [data-theme="pochacco"] {
-  --primary: #2ed573;
-  /* Green */
-  --secondary: #3742fa;
-  /* Blue accent */
+  --primary: #eccc68;
+  /* Soft yellow/green accents */
+  --secondary: #2ed573;
+  /* Grass green */
   --text-dark: #2f3542;
   --text-light: #57606f;
-  --bg-gradient: linear-gradient(135deg, #dfe4ea 0%, #ced6e0 100%);
-  /* Light grey/whiteish */
+  --bg-gradient: linear-gradient(135deg, #f1f2f6 0%, #7bed9f 100%);
   --card-bg: #ffffff;
-  --border-color: #a4b0be;
+  --border-color: #7bed9f;
   --success: #2ed573;
   --danger: #ff4757;
+  --character-img: url('https://upload.wikimedia.org/wikipedia/en/c/cc/Pochacco.png');
+  /* Wikipedia fallback if exists, or use generic */
 }
 
-/* Kuromi Theme - Gothic, Purple, Black, Pink */
+/* Fallback for Pochacco if wikipedia link fails - using a solid Sanrio color scheme */
+[data-theme="pochacco"] {
+  --character-img: url('https://static.wikia.nocookie.net/sanrio/images/d/d4/Pochacco.png');
+}
+
+/* Kuromi Theme */
 [data-theme="kuromi"] {
   --primary: #e056fd;
-  /* Pink/Purple */
+  /* Neon Purple */
   --secondary: #130f40;
-  /* Dark Purple/Black */
+  /* Deep Purple/Black */
   --text-dark: #30336b;
   --text-light: #535c68;
   --bg-gradient: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-  /* Light purple gradient */
   --card-bg: #ffffff;
   --border-color: #be2edd;
   --success: #6ab04c;
   --danger: #eb4d4b;
+  --character-img: url('https://static.wikia.nocookie.net/sanrio/images/7/77/Kuromi_Sanrio.png');
 }
 
-/* Hello Kitty Theme - Cute, Red, Pink, White */
+/* Hello Kitty Theme */
 [data-theme="hello-kitty"] {
   --primary: #ff4757;
-  /* Classic Red */
-  --secondary: #ff9ff3;
+  /* Red */
+  --secondary: #ff6b81;
   /* Pink */
   --text-dark: #2f3542;
   --text-light: #747d8c;
   --bg-gradient: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
-  /* Soft pink gradient */
   --card-bg: #fff0f3;
-  /* Very light pink card */
   --border-color: #ffcccc;
   --success: #badc58;
   --danger: #eb4d4b;
+  --character-img: url('https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png');
 }
 
 
@@ -103,21 +95,46 @@
 body {
   font-family: 'Outfit', sans-serif;
   background: var(--bg-gradient);
+  background-attachment: fixed;
+  /* Keep gradient fixed */
   color: var(--text-dark);
   line-height: 1.5;
   transition: background 0.5s ease;
+  position: relative;
+  min-height: 100vh;
 }
 
+/* Character Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 300px;
+  height: 300px;
+  background-image: var(--character-img);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: contain;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+  transition: background-image 0.5s ease;
+}
+
+/* Adjust main content z-index to stay above character */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 /* Header */
 header {
-  background: white;
-  /* Keep header white for contrast */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   padding: 1.5rem 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -126,6 +143,8 @@ header {
   flex-wrap: wrap;
   gap: 1rem;
   z-index: 10;
+  border-bottom: 3px solid var(--primary);
+  transition: border-color 0.5s;
 }
 
 .header-content {
@@ -134,8 +153,9 @@ header {
 
 .header-content h1 {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--secondary);
+  transition: color 0.5s;
 }
 
 .header-content p {
@@ -160,15 +180,18 @@ header {
   color: var(--text-light);
   margin-bottom: 0.2rem;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .theme-selector select {
   padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
   width: 140px;
-  background-color: #f1f2f6;
-  border: 1px solid transparent;
+  background-color: transparent;
+  border: 2px solid var(--secondary);
+  color: var(--secondary);
+  font-weight: 600;
+  border-radius: 20px;
 }
 
 .stats-bar {
@@ -218,6 +241,7 @@ main {
   flex-wrap: wrap;
   gap: 1.5rem;
   align-items: flex-end;
+  border: 1px solid var(--border-color);
 }
 
 .filter-group {
@@ -312,15 +336,14 @@ input[type=range] {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  display: flex;
-  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+  border: 2px solid transparent;
 }
 
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
 }
 
 .card-image-wrapper {
@@ -397,9 +420,8 @@ input[type=range] {
 .spec-item i {
   width: 16px;
   height: 16px;
-  background-color: var(--text-light);
-  /* Better placeholder contrast */
-  opacity: 0.2;
+  background-color: var(--secondary);
+  opacity: 0.1;
   border-radius: 50%;
 }
 
@@ -409,17 +431,38 @@ input[type=range] {
   text-align: center;
   background: var(--secondary);
   color: white;
+  /* Default text color */
   padding: 1rem;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
   transition: background 0.2s ease, transform 0.1s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme-specific button text color adjustments if needed */
+[data-theme="xo"] .btn-view {
+  color: #ffd700;
+  /* Yellow text on dark button */
+}
+
+[data-theme="pochacco"] .btn-view,
+[data-theme="hello-kitty"] .btn-view,
+[data-theme="kuromi"] .btn-view {
+  color: white;
 }
 
 .btn-view:hover {
   background: var(--primary);
   transform: scale(1.02);
+  color: white;
+  /* For XO, ensure hover text is readable */
 }
+
+[data-theme="xo"] .btn-view:hover {
+  color: #000;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -431,5 +474,12 @@ input[type=range] {
 
   .filter-group {
     flex: 1 1 auto;
+  }
+
+  body::after {
+    opacity: 0.2;
+    /* Fade character on mobile */
+    width: 200px;
+    height: 200px;
   }
 }
