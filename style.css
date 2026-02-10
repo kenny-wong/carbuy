@@ -848,7 +848,9 @@ input[type=range] {
   }
 
   .filter-group {
-    flex: 1 1 auto;
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
   }
 
   .filter-group label {
@@ -864,9 +866,10 @@ input[type=range] {
 
   .range-filters-container {
     flex-direction: row;
-    /* Keep horizontal on mobile */
     gap: 0.8rem;
     width: 100%;
+    flex: 1 1 auto !important;
+    /* Override flex: 2 1 500px */
   }
 
   .range-group {
