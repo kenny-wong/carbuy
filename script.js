@@ -11,6 +11,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const modelFilter = document.getElementById('model-filter');
     const engineFilter = document.getElementById('engine-filter');
     const sortBy = document.getElementById('sort-by');
+    const themeSelect = document.getElementById('theme-select');
+
+    // Theme Logic
+    const themes = ['original', 'xo', 'pochacco', 'kuromi', 'hello-kitty'];
+
+    function initTheme() {
+        let savedTheme = localStorage.getItem('carbuy-theme');
+
+        if (!savedTheme) {
+            // First time visit: Pick random theme
+            const randomIndex = Math.floor(Math.random() * themes.length);
+            savedTheme = themes[randomIndex];
+            localStorage.setItem('carbuy-theme', savedTheme);
+        }
+
+        applyTheme(savedTheme);
+    }
+
+    function applyTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
+        themeSelect.value = theme;
+    }
+
+    // Event Listener for Theme
+    themeSelect.addEventListener('change', (e) => {
+        const selectedTheme = e.target.value;
+        applyTheme(selectedTheme);
+        localStorage.setItem('carbuy-theme', selectedTheme);
+    });
+
+    // Initialize Theme immediately
+    initTheme();
 
     let allCars = [];
     let filteredCars = [];
