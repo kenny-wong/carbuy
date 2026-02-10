@@ -13,14 +13,16 @@
   --success: #2ed573;
   --danger: #ff6b81;
   --character-img: none;
+  --btn-bg: #2F3542;
+  --btn-text: #ffffff;
 }
 
 /* XO Theme (Bad Badtz-Maru) */
 [data-theme="xo"] {
   --primary: #FFD700;
-  /* Yellow beak */
+  /* Yellow */
   --secondary: #2d3436;
-  /* Charcoal */
+  /* Dark Grey */
   --text-dark: #2d3436;
   --text-light: #636e72;
   --bg-gradient: linear-gradient(135deg, #b2bec3 0%, #636e72 100%);
@@ -28,15 +30,17 @@
   --border-color: #2d3436;
   --success: #00b894;
   --danger: #d63031;
-  --character-img: url('https://upload.wikimedia.org/wikipedia/en/5/53/Badtz-Maru.png');
+  --character-img: url('images/xo.png');
+  --btn-bg: #2d3436;
+  --btn-text: #FFD700;
 }
 
 /* Pochacco Theme */
 [data-theme="pochacco"] {
   --primary: #eccc68;
-  /* Soft yellow/green accents */
+  /* Light Yellow */
   --secondary: #2ed573;
-  /* Grass green */
+  /* Green */
   --text-dark: #2f3542;
   --text-light: #57606f;
   --bg-gradient: linear-gradient(135deg, #f1f2f6 0%, #7bed9f 100%);
@@ -44,13 +48,9 @@
   --border-color: #7bed9f;
   --success: #2ed573;
   --danger: #ff4757;
-  --character-img: url('https://upload.wikimedia.org/wikipedia/en/c/cc/Pochacco.png');
-  /* Wikipedia fallback if exists, or use generic */
-}
-
-/* Fallback for Pochacco if wikipedia link fails - using a solid Sanrio color scheme */
-[data-theme="pochacco"] {
-  --character-img: url('https://static.wikia.nocookie.net/sanrio/images/d/d4/Pochacco.png');
+  --character-img: url('images/pochacco.png');
+  --btn-bg: #2ed573;
+  --btn-text: #ffffff;
 }
 
 /* Kuromi Theme */
@@ -60,13 +60,16 @@
   --secondary: #130f40;
   /* Deep Purple/Black */
   --text-dark: #30336b;
+  /* Dark Purple Text */
   --text-light: #535c68;
   --bg-gradient: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
   --card-bg: #ffffff;
   --border-color: #be2edd;
   --success: #6ab04c;
   --danger: #eb4d4b;
-  --character-img: url('https://static.wikia.nocookie.net/sanrio/images/7/77/Kuromi_Sanrio.png');
+  --character-img: url('images/kuromi.png');
+  --btn-bg: #130f40;
+  --btn-text: #e056fd;
 }
 
 /* Hello Kitty Theme */
@@ -82,7 +85,9 @@
   --border-color: #ffcccc;
   --success: #badc58;
   --danger: #eb4d4b;
-  --character-img: url('https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png');
+  --character-img: url('images/hello-kitty.png');
+  --btn-bg: #ff6b81;
+  --btn-text: #ffffff;
 }
 
 
@@ -96,7 +101,6 @@ body {
   font-family: 'Outfit', sans-serif;
   background: var(--bg-gradient);
   background-attachment: fixed;
-  /* Keep gradient fixed */
   color: var(--text-dark);
   line-height: 1.5;
   transition: background 0.5s ease;
@@ -104,14 +108,14 @@ body {
   min-height: 100vh;
 }
 
-/* Character Overlay */
+/* Character Overlay - Applied to whole background more prominently */
 body::after {
   content: "";
   position: fixed;
   bottom: 0;
   right: 20px;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   background-image: var(--character-img);
   background-repeat: no-repeat;
   background-position: bottom right;
@@ -122,7 +126,7 @@ body::after {
   transition: background-image 0.5s ease;
 }
 
-/* Adjust main content z-index to stay above character */
+/* Adjust main content z-index */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -133,7 +137,7 @@ body::after {
 
 /* Header */
 header {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
   padding: 1.5rem 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -328,6 +332,8 @@ input[type=range] {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
+  /* Ensure grid items stretch to fill row height */
+  align-items: stretch;
 }
 
 /* Card Styles */
@@ -338,6 +344,10 @@ input[type=range] {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
   border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Fill the grid cell height */
 }
 
 .card:hover {
@@ -351,6 +361,7 @@ input[type=range] {
   overflow: hidden;
   position: relative;
   background: #f1f2f6;
+  flex-shrink: 0;
 }
 
 .card-image {
@@ -384,6 +395,7 @@ input[type=range] {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .card-title {
@@ -427,11 +439,11 @@ input[type=range] {
 
 .btn-view {
   margin-top: auto;
+  /* Push to bottom */
   display: block;
   text-align: center;
-  background: var(--secondary);
-  color: white;
-  /* Default text color */
+  background: var(--btn-bg);
+  color: var(--btn-text);
   padding: 1rem;
   border-radius: 10px;
   text-decoration: none;
@@ -440,29 +452,11 @@ input[type=range] {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Theme-specific button text color adjustments if needed */
-[data-theme="xo"] .btn-view {
-  color: #ffd700;
-  /* Yellow text on dark button */
-}
-
-[data-theme="pochacco"] .btn-view,
-[data-theme="hello-kitty"] .btn-view,
-[data-theme="kuromi"] .btn-view {
-  color: white;
-}
-
 .btn-view:hover {
   background: var(--primary);
+  color: #fff;
   transform: scale(1.02);
-  color: white;
-  /* For XO, ensure hover text is readable */
 }
-
-[data-theme="xo"] .btn-view:hover {
-  color: #000;
-}
-
 
 /* Responsive */
 @media (max-width: 768px) {
