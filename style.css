@@ -750,10 +750,20 @@ input[type=range] {
 /* Responsive */
 @media (max-width: 768px) {
 
+  /* Make container full width on mobile */
+  .app-container {
+    padding: 0 0.8rem;
+  }
+
+  .app-layout {
+    gap: 0.8rem;
+  }
+
   /* Fix header layout on mobile */
   header {
-    padding: 1rem;
+    padding: 1rem 1.2rem;
     gap: 0.8rem;
+    border-radius: 0;
   }
 
   .header-content {
@@ -840,11 +850,11 @@ input[type=range] {
     flex-direction: column;
     align-items: stretch;
     gap: 0.8rem;
-    padding: 1rem;
+    padding: 1rem 1.2rem;
     width: 100%;
-    /* Force full width */
     margin-left: 0;
     margin-right: 0;
+    margin-bottom: 1rem;
   }
 
   .filter-group {
