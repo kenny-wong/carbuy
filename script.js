@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortBy = document.getElementById('sort-by');
     const themeSelect = document.getElementById('theme-select');
     const leaderboardList = document.getElementById('leaderboard-list');
+    const userDisplay = document.getElementById('user-display');
+    const userIcon = document.getElementById('user-icon');
+    const userNameTag = document.getElementById('user-name-tag');
 
     // Login Elements
     const loginModal = document.getElementById('login-modal');
@@ -53,6 +56,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         applyTheme(savedTheme || 'original');
+        updateUserDisplay(currentUser);
+    }
+
+    function updateUserDisplay(user) {
+        if (user && familyMembers[user]) {
+            userDisplay.style.display = 'flex';
+            userNameTag.textContent = user;
+
+            const iconWrapper = userIcon.parentElement;
+            const iconName = user.toLowerCase().replace(/\s+/g, '-');
+
+            // Reset wrapper
+            iconWrapper.className = 'user-icon-wrapper ' + iconName;
+            iconWrapper.textContent = '';
+            iconWrapper.appendChild(userIcon);
+
+            userIcon.style.display = 'none';
+            userIcon.src = `images/icons/${iconName}.png`;
+
+            userIcon.onerror = function () {
+                this.style.display = 'none';
+                iconWrapper.textContent = user[0];
+            };
+
+            userIcon.onload = function () {
+                this.style.display = 'block';
+                iconWrapper.textContent = '';
+                iconWrapper.appendChild(this);
+            };
+        } else {
+            userDisplay.style.display = 'none';
+        }
     }
 
     function applyTheme(theme) {
@@ -109,7 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Audit failed:', err);
             }
 
-            // 4. Close Modal
+            // 4. Update Header
+            updateUserDisplay(selectedUser);
+
+            // 5. Close Modal
             loginModal.classList.remove('active');
         } else {
             loginError.style.display = 'block';
