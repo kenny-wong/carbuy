@@ -418,4 +418,5 @@ FodyWeavers.xsd
 *.msp
 .vercel
 supabase
-.env*.local
+.env*
+.agent
