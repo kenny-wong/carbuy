@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -23,6 +25,9 @@
                                 <img id="user-icon" src="" alt="" class="user-icon-small">
                             </div>
                             <span id="user-name-tag"></span>
+                        </div>
+                        <div id="presence-list" class="presence-list-header">
+                            <!-- Active users will be injected here -->
                         </div>
                     </div>
                     <div class="theme-selector">
@@ -52,13 +57,6 @@
                         <p class="empty">No votes yet</p>
                     </div>
                 </div>
-
-                <div class="presence-card" id="presence-card" style="margin-top: 2rem;">
-                    <h3>🟢 Online Now</h3>
-                    <div id="presence-list" class="presence-list">
-                        <!-- Active users will be injected here -->
-                    </div>
-                </div>
             </aside>
 
             <main class="main-content">
@@ -85,7 +83,9 @@
                         <label for="sort-by">Sort By</label>
                         <div class="select-wrapper">
                             <select id="sort-by">
-                                <option value="model-asc" selected>Model: A-Z</option>
+                                <option value="date-desc" selected>Date: Newest</option>
+                                <option value="date-asc">Date: Oldest</option>
+                                <option value="model-asc">Model: A-Z</option>
                                 <option value="price-asc">Price: Low to High</option>
                                 <option value="price-desc">Price: High to Low</option>
                                 <option value="mileage-asc">Mileage: Low to High</option>

@@ -162,11 +162,30 @@ header {
   width: 100%;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+/* ... (existing variables) ... */
+
 #main-title {
+  font-family: 'Noto Sans TC', sans-serif;
+  /* Use new Chinese font */
   font-size: 2.2rem;
   font-weight: 800;
   color: var(--secondary);
   letter-spacing: -0.5px;
+}
+
+/* ... */
+
+/* NEW: Red New Badge with date */
+.status-badge.new {
+  background: #e74c3c;
+  left: 1rem;
+  right: auto;
+  top: 1rem;
+  font-size: 0.65rem;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
 }
 
 .title-area {
@@ -797,6 +816,54 @@ input[type=range] {
   display: flex;
   gap: 0.3rem;
   flex-wrap: wrap;
+}
+
+/* Voter Overlay on Card Image */
+.card-voters-overlay {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 60%;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+/* Duplicate removed - see line ~180 */
+
+/* NEW: Compact Header Presence */
+.presence-list-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 1rem;
+}
+
+.online-label {
+  color: #27ae60;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.presence-list-header .online-user {
+  padding: 0;
+  background: none;
+  border: none;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.presence-list-header .online-user span {
+  display: none;
+  /* Hide names in header for compactness */
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
 .voter-bubble {
