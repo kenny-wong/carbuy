@@ -420,3 +420,4 @@ FodyWeavers.xsd
 supabase
 .env*
 .agent
+.cursorrules
