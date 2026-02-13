@@ -1,87 +1,115 @@
-# Car Buying Dashboard (程晞大家庭 - 買車)
+# 程晞大家庭 - 買車 (Family Car Buying Dashboard)
 
-A dynamic, responsive dashboard for the family to browse, filter, vote on, and discuss car listings together. Built with a premium UI featuring Sanrio character themes, real-time user presence, and a voting system.
+A premium, interactive dashboard for the family to browse, filter, vote on, and discover car listings together. Features Sanrio character themes, real-time user presence, a voting leaderboard, and smooth micro-animations throughout.
 
-**Live Site**: [https://carbuy-chi.vercel.app](https://carbuy-chi.vercel.app)
+**🔗 Live Site**: [https://carbuy-chi.vercel.app](https://carbuy-chi.vercel.app)
+
+---
 
 ## 🌟 Features
 
 ### 🚗 Car Listings
-- **Dynamic Data Loading**: Fetches car data from Supabase without page reloads.
-- **Interactive Filtering**:
-  - **Model**: Filter by car model.
-  - **Engine**: Filter by engine size/type.
-  - **Max Price**: Slider to set a maximum price budget.
-  - **Max Mileage**: Slider to set a maximum mileage limit.
-- **Smart Sorting**: Sort listings by Price (Low/High), Mileage (Low/High), or Model (A-Z).
-- **Detailed Analytics**: Real-time stats bar showing total listings and average price.
+- **Dynamic Data**: Fetches listings from Supabase (PostgreSQL) in real time.
+- **Smart Filtering**: Filter by Model, Engine type, Max Price (slider), and Max Mileage (slider).
+- **Sorting**: Sort by Price (Low/High), Mileage (Low/High), Model (A-Z), or **Date Added (Newest)**.
+- **Stats Bar**: Live counter showing total vehicles and average price.
+- **"New" Badges**: Cars added within 3 days show a "New: today / 1d ago / 2d ago" badge.
 
 ### ❤️ Voting System
-- **Vote for Cars**: Each family member can vote (heart) their favourite listings.
-- **Red Heart on Vote**: The heart icon turns red when you've voted for a car.
-- **Voter Bubbles**: See who voted for each car with Sanrio character avatar bubbles.
-- **Leaderboard**: "🏆 Top Rated Cars" sidebar showing the most voted cars.
+- **One Vote Per Car**: Each family member can vote (heart ♥) their favourites.
+- **Voter Avatars**: See who voted with Sanrio character bubbles on each card.
+- **🏆 Top Rated Leaderboard**: Sidebar ranking the most-voted cars.
+- **Highlight Effect**: Click a leaderboard car → page scrolls to the card and it **glows with a pulse animation** for 3 seconds, then fades away.
 
-### 🟢 User Presence (Online Now)
-- **Heartbeat System**: Clients ping the server every 60 seconds.
-- **Online Users**: The "🟢 Online Now" sidebar section shows who's currently browsing.
-- **2-Minute Timeout**: Users appear offline after 2 minutes of inactivity.
+### 🟢 Real-Time Presence
+- **Heartbeat System**: Clients ping every 60 seconds.
+- **Online Now**: Header shows who's currently browsing with character avatars.
+- **2-Minute Timeout**: Users go offline after 2 minutes of inactivity.
 
 ### 🎨 Sanrio Character Themes
-- **Original**: Clean and modern default theme.
-- **XO (Bad Badtz-Maru)**: Dark theme with yellow accents.
-- **Pochacco**: Mint green and soft cyan theme.
-- **Kuromi**: Purple and black gothic theme.
-- **Hello Kitty**: Classic pink and red theme.
+| Theme | Style |
+|---|---|
+| **Original** | Clean modern default |
+| **XO (Bad Badtz-Maru)** | Dark grey + yellow accents |
+| **Pochacco** | Mint green + soft cyan |
+| **Kuromi** | Purple + black gothic |
+| **Hello Kitty** | Classic pink + red |
 
-Each theme includes a full-body character overlay and matching colour palette.
+Each theme includes a full-body character overlay, matching colour palette, and themed UI elements.
 
-### 👤 Family Login System
-- **Member Profiles**: Kenny, Gubie, Hayley, and Chloe each have unique logins.
-- **Secret Phrase Authentication**: Each member has a Sanrio character as their secret.
-- **Personalised Experience**: Auto-applies the member's theme on login and displays their avatar in the header.
+### 👤 Family Login
+- **4 Members**: Kenny, Gubie, Hayley, Chloe — each with a unique Sanrio secret phrase.
+- **Personalised**: Auto-applies the member's theme and avatar on login.
+- **Audit Logging**: Theme selections are logged to Supabase for analytics.
 
 ### 📱 Responsive Design
-- **Mobile** (< 480px): Single-column card grid, compact filters, full-width layout.
-- **Medium Mobile** (480–768px): Two-column card grid.
-- **Tablet** (769–1100px): Three-column card grid.
-- **Desktop** (> 1100px): Full layout with sidebar.
-- Sidebar (Top Rated + Online Now) appears above filters on mobile.
+| Breakpoint | Layout |
+|---|---|
+| **< 480px** | Single-column cards, compact filters |
+| **480–768px** | Two-column cards |
+| **769–1100px** | Three-column cards |
+| **> 1100px** | Full layout with sidebar |
+
+Top Rated + Online Now sections appear above filters on mobile.
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: HTML5, CSS3 (Vanilla CSS with CSS Variables), JavaScript (ES6+ Vanilla)
-- **Backend**: Node.js Serverless Functions (Vercel)
-- **Database**: Supabase (PostgreSQL)
-- **Hosting**: Vercel
-- **Fonts**: [Outfit](https://fonts.google.com/specimen/Outfit) via Google Fonts
+| Layer | Technology |
+|---|---|
+| **Frontend** | HTML5, Vanilla CSS (CSS Variables), Vanilla JavaScript (ES6+) |
+| **Backend** | Node.js Serverless Functions (Vercel) |
+| **Database** | Supabase (PostgreSQL) with Supabase CLI migrations |
+| **Hosting** | Vercel (auto-deploy from GitHub) |
+| **Fonts** | [Outfit](https://fonts.google.com/specimen/Outfit) + [Noto Sans TC](https://fonts.google.com/specimen/Noto+Sans+TC) (Chinese header) |
+
+---
 
 ## 📂 Project Structure
 
 ```
 carbuy/
-├── index.html              # Main HTML page
-├── style.css               # All styling including responsive breakpoints
-├── script.js               # Client-side logic (filters, votes, presence, themes)
-├── car_data.json           # Raw car data (JSON)
-├── schema.sql              # Database schema (cars, votes, audit_log, presence)
-├── seed.sql                # Database seed data
-├── package.json            # Node.js dependencies
-├── vercel.json             # Vercel configuration
-├── api/
-│   ├── cars.js             # GET car listings from Supabase
-│   ├── votes.js            # GET/POST votes (toggle vote per user)
-│   └── presence.js         # GET online users / POST heartbeat
+├── index.html                 # Main HTML page
+├── style.css                  # All styles + responsive breakpoints + animations
+├── script.js                  # Client logic (filters, votes, presence, themes, highlight)
+├── car_data.json              # Car listing data (JSON)
+├── package.json               # Node.js dependencies (@supabase/supabase-js, pg)
+├── vercel.json                # Vercel routing configuration
+│
+├── api/                       # Vercel serverless functions
+│   ├── cars.js                # GET car listings from Supabase
+│   ├── votes.js               # GET/POST votes (toggle per user)
+│   ├── presence.js            # GET online users / POST heartbeat
+│   └── audit.js               # POST theme audit log
+│
 ├── images/
-│   ├── xo.png              # Bad Badtz-Maru character
-│   ├── pochacco.png        # Pochacco character
-│   ├── kuromi.png          # Kuromi character
-│   └── hello-kitty.png     # Hello Kitty character
+│   ├── xo.png                 # Bad Badtz-Maru full-body
+│   ├── pochacco.png           # Pochacco full-body
+│   ├── kuromi.png             # Kuromi full-body
+│   ├── hello-kitty.png        # Hello Kitty full-body
+│   └── icons/                 # Voter avatar icons (per character)
+│
+├── sql/
+│   ├── schema.sql             # Full database schema reference
+│   └── update_cars.sql        # SQL for bulk-inserting new cars
+│
 ├── supabase/
-│   └── migrations/         # Supabase migration files
-├── generate_seed.py        # Script to generate seed.sql from car_data.json
-└── append_new_cars.py      # Script to append new cars to car_data.json
+│   └── migrations/            # Supabase CLI migration files
+│       ├── 20260210210000_schema.sql
+│       ├── 20260210210001_seed.sql
+│       ├── 20260210221700_add_audit_log.sql
+│       ├── 20260210223000_add_votes.sql
+│       ├── 20260210230000_add_presence.sql
+│       └── ...                # New migrations added via workflow
+│
+└── .agent/
+    └── workflows/
+        ├── add-cars.md        # AI workflow: add cars from Autotrader URLs
+        └── delete-car.md      # AI workflow: delete a car by URL
 ```
+
+---
 
 ## 🚀 Local Development
 
@@ -102,78 +130,92 @@ npx vercel env pull .env.local --environment production
 ```
 
 ### Run Locally
+
+**Full stack** (with serverless API routes):
 ```bash
 npx vercel dev
 ```
-This starts the Vercel dev server with serverless functions at `http://localhost:3000`.
+Opens at `http://localhost:3000`.
 
-Alternatively, for frontend-only development:
+**Frontend-only** (static file server):
 ```bash
 python -m http.server 8000
 ```
-Then open `http://localhost:8000` (Note: API routes won't work without Vercel dev).
+Opens at `http://localhost:8000` (API routes won't work).
+
+---
 
 ## 📡 API Endpoints
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `/api/cars` | GET | Fetch all car listings from Supabase |
+| `/api/cars` | GET | Fetch all car listings ordered by `created_at` desc |
 | `/api/votes` | GET | Fetch all votes |
 | `/api/votes` | POST | Toggle a vote `{ car_url, user_name }` |
-| `/api/presence` | GET | Fetch currently online users (seen in last 2 min) |
+| `/api/presence` | GET | Fetch online users (active within 2 min) |
 | `/api/presence` | POST | Send heartbeat `{ user_name }` |
+| `/api/audit` | POST | Log theme selection `{ user_name, selected_theme }` |
+
+---
 
 ## ☁️ Deployment
 
-### 1. Database Setup (Supabase)
-1. Create a new project on [Supabase](https://supabase.com).
-2. Go to the **SQL Editor** in your Supabase dashboard.
-3. Copy and run the contents of `schema.sql` to create all tables (`cars`, `votes`, `audit_log`, `presence`).
-4. Copy and run the contents of `seed.sql` to import existing car data.
-
-### 2. Deployment (Vercel)
-1. Install Vercel CLI: `npm install -g vercel` (or use `npx vercel`).
-2. Run `npx vercel` in the project root and follow the prompts.
-3. **Environment Variables**: Go to your Vercel Project Settings > Environment Variables and add:
-    - `SUPABASE_URL`: Your Supabase Project URL.
-    - `SUPABASE_ANON_KEY`: Your Supabase Anon/Public Key.
-    - `SUPABASE_DB_PASSWORD`: Your Supabase Database Password (for CLI migrations).
-
-### 3. Database Migrations (CLI)
-```bash
-# Set password
-$env:SUPABASE_DB_PASSWORD = "your-password-here"
-
-# Push migrations
+### 1. Database (Supabase)
+1. Create a project on [Supabase](https://supabase.com).
+2. Run the migration files via Supabase CLI:
+```powershell
+$env:SUPABASE_DB_PASSWORD = "your-password"
 npx supabase db push
 ```
 
-## 📂 Data Structure
+### 2. Hosting (Vercel)
+1. Run `npx vercel` and follow the prompts.
+2. Add environment variables in Vercel Project Settings:
+   - `SUPABASE_URL` — Your Supabase project URL
+   - `SUPABASE_ANON_KEY` — Your Supabase anon/public key
+   - `SUPABASE_DB_PASSWORD` — Your database password (for CLI migrations)
 
-The dashboard expects `car_data.json` to follow this structure:
+### 3. Auto-Deploy
+Push to `main` → Vercel auto-deploys. Check status:
+```bash
+npx vercel ls carbuy
+```
+
+---
+
+## 📦 Data Structure
+
+Each car in `car_data.json`:
 
 ```json
-[
-  {
-    "url": "https://example.com/car-listing",
-    "title": "2015 Nissan Juke",
-    "price": "£6,495",
-    "mileage": "42,000 miles",
-    "transmission": "Automatic",
-    "engine_fuel": "1.6L Petrol",
-    "image_url": "https://example.com/image.jpg"
-  }
-]
+{
+  "url": "https://www.autotrader.co.uk/car-details/202512298823547",
+  "title": "2014 Nissan Serena",
+  "price": "£7,250",
+  "mileage": "54,172 miles",
+  "transmission": "Automatic",
+  "engine_fuel": "2.0L Petrol Hybrid",
+  "image_url": "https://m.atcdn.co.uk/a/media/...",
+  "created_at": "2026-02-10T21:56:10Z"
+}
 ```
 
-## 📝 Adding New Cars
+---
 
-Use the provided Python scripts:
+## 🤖 AI Workflows
 
-```bash
-# Append new cars from autotrader_data.json
-python append_new_cars.py
+This project includes AI-assisted workflows (in `.agent/workflows/`) for managing car listings:
 
-# Regenerate seed.sql from car_data.json
-python generate_seed.py
-```
+### `/add-cars` — Add New Cars
+Provide Autotrader UK URLs → AI scrapes the data, updates `car_data.json`, creates a Supabase migration, pushes to DB, commits, and deploys.
+
+### `/delete-car` — Delete a Car
+Provide the car URL → AI removes from `car_data.json`, creates a DELETE migration, pushes to Supabase via CLI, commits, and verifies deployment.
+
+Both workflows use `npx supabase db push` for reliable database updates.
+
+---
+
+## 📝 License
+
+Private family project.
