@@ -612,6 +612,47 @@ input[type=range] {
   border-color: var(--primary);
 }
 
+/* Leaderboard → Card Highlight Effect */
+.card.car-highlight {
+  animation: carHighlightPulse 3s ease-out forwards;
+  z-index: 10;
+  position: relative;
+}
+
+@keyframes carHighlightPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--primary);
+    border-color: transparent;
+  }
+
+  8% {
+    transform: scale(1.03);
+    box-shadow:
+      0 0 20px rgba(255, 71, 87, 0.4),
+      0 0 60px rgba(255, 71, 87, 0.15),
+      inset 0 0 15px rgba(255, 71, 87, 0.05);
+    border-color: var(--primary);
+  }
+
+  /* Hold the glow */
+  60% {
+    transform: scale(1.03);
+    box-shadow:
+      0 0 20px rgba(255, 71, 87, 0.4),
+      0 0 60px rgba(255, 71, 87, 0.15),
+      inset 0 0 15px rgba(255, 71, 87, 0.05);
+    border-color: var(--primary);
+  }
+
+  /* Fade out */
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-color: transparent;
+  }
+}
+
 .card-image-wrapper {
   height: 220px;
   overflow: hidden;
