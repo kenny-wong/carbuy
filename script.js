@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leaderboardList.innerHTML = rankedCars.map((car, index) => {
             const carId = 'car-' + car.url.split('/').pop().split('?')[0];
             return `
-            <div class="leaderboard-item" onclick="document.getElementById('${carId}')?.scrollIntoView({behavior: 'smooth', block: 'center'})" style="cursor: pointer;">
+            <div class="leaderboard-item" data-target-id="${carId}" style="cursor: pointer;">
                 <span class="rank">#${index + 1}</span>
                 <div class="lb-car-info">
                     <span class="lb-car-title">${car.title}</span>
@@ -280,6 +280,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="lb-count"><strong>${car.count}</strong></div>
             </div>
         `}).join('');
+
+        // Attach click handlers for leaderboard highlight effect
+        leaderboardList.querySelectorAll('.leaderboard-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const targetId = item.getAttribute('data-target-id');
+                highlightCar(targetId);
+            });
+        });
+    }
+
+    // --- Highlight Car Effect ---
+    function highlightCar(carId) {
+        const card = document.getElementById(carId);
+        if (!card) return;
+
+        // Scroll into view
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Remove any existing highlight first
+        card.classList.remove('car-highlight');
+        // Force reflow so re-adding the class restarts the animation
+        void card.offsetWidth;
+
+        // Add highlight class
+        card.classList.add('car-highlight');
+
+        // Remove after animation completes (3s)
+        setTimeout(() => {
+            card.classList.remove('car-highlight');
+        }, 3000);
     }
 
     // --- Presence System ---
