@@ -9,70 +9,31 @@ The user will provide the **Autotrader URL** of the car to delete.
 ## 1. Update `car_data.json`
 
 - File: `c:\Users\kaiya\github\carbuy\car_data.json`
-- Find the car object where `"url"` matches the provided URL.
+- Find the car object where `"url"` matches the provided URL (ignore query params).
 - **Remove** that object from the JSON array.
 - **Important**: Ensure valid JSON structure is maintained (fix commas).
 
-## 2. Execute SQL in Supabase (REST API)
+## 2. Create Supabase Migration
 
 // turbo-all
 
-Use the Supabase REST API to delete the car, as direct Postgres connections can be flaky with certain restricted networks or user configurations.
+1. Create a new migration file in `supabase/migrations/` with timestamp naming:
+   - Format: `YYYYMMDDHHMMSS_delete_<car_name>.sql`
+   - Example: `20260213011000_delete_nissan_serena.sql`
 
-1. **Create a temporary delete script** `temp_delete_api.js`:
-```javascript
-const https = require('https');
-const fs = require('fs');
-
-// Configuration
-const SUPABASE_URL = 'https://nncxbppcjsigauflrdxw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5uY3hicHBjanNpZ2F1ZmxyZHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3NTgzMjksImV4cCI6MjA4NjMzNDMyOX0.FV-8vUkD0Y0-iZpmC_pUuM7Qo4cqMwi_UjdggBRok-s';
-const TARGET_URL = 'THE_TARGET_URL'; // Replace this!
-
-const options = {
-  hostname: 'nncxbppcjsigauflrdxw.supabase.co',
-  path: `/rest/v1/cars?url=eq.${encodeURIComponent(TARGET_URL)}`,
-  method: 'DELETE',
-  headers: {
-    'apikey': SUPABASE_KEY,
-    'Authorization': `Bearer ${SUPABASE_KEY}`,
-    'Content-Type': 'application/json',
-    'Prefer': 'return=representation'
-  }
-};
-
-const req = https.request(options, (res) => {
-  let data = '';
-  res.on('data', (chunk) => { data += chunk; });
-  res.on('end', () => {
-    if (res.statusCode >= 200 && res.statusCode < 300) {
-      console.log('Success:', data);
-      const rows = JSON.parse(data);
-      console.log('Rows deleted:', rows.length);
-    } else {
-      console.error('Error:', res.statusCode, data);
-      process.exit(1);
-    }
-  });
-});
-
-req.on('error', (e) => {
-  console.error('Request error:', e);
-  process.exit(1);
-});
-
-req.end();
+2. Contents:
+```sql
+-- Delete <Car Name> from cars table
+DELETE FROM cars WHERE url = '<THE_CLEAN_URL>';
 ```
+   - Use the **clean URL** (no query params like `?calc-deposit=...`).
 
-2. **Run the script**:
+3. Push the migration:
 ```powershell
-# Replace THE_TARGET_URL in the file content first!
-node temp_delete_api.js
+$env:SUPABASE_DB_PASSWORD = "Hk049866!!!!!"; npx supabase db push
 ```
-
-3. **Verify output**:
-   - Expect `Rows deleted: 1` (or 0 if already deleted).
-   - If successful, remove the temp script.
+   - Confirm with `Y` when prompted.
+   - Expect: `Applying migration ... Finished supabase db push.`
 
 ## 3. Git Push & Verify Vercel Deploy
 
