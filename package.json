@@ -4,7 +4,7 @@
     "description": "API for Car Buying Dashboard",
     "main": "api/cars.js",
     "dependencies": {
-        "@supabase/supabase-js": "^2.39.0"
-    },
-    "devDependencies": {}
+        "@supabase/supabase-js": "^2.39.0",
+        "pg": "^8.18.0"
+    }
 }
