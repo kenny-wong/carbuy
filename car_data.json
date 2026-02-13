@@ -40,6 +40,7 @@
         "created_at": "2026-02-12T11:45:00Z"
     },
     {
+        "url": "https://www.autotrader.co.uk/car-details/202512218737311",
         "title": "2014 Ford B-Max",
         "price": "\u00a34,990",
         "mileage": "44,287 miles",
@@ -127,16 +128,6 @@
         "engine_fuel": "1.6L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/dbef9e580b56449eaea372ecef5f0e04.jpg",
         "created_at": "2026-01-10T09:15:00Z"
-    },
-    {
-        "url": "https://www.autotrader.co.uk/car-details/202512298823547",
-        "title": "2014 Nissan Serena",
-        "price": "\u00a37,250",
-        "mileage": "54,172 miles",
-        "transmission": "Automatic",
-        "engine_fuel": "2.0L Petrol Hybrid",
-        "image_url": "https://m.atcdn.co.uk/a/media/5290f35bb24343fcbef1b93298fc1d3c.jpg",
-        "created_at": "2026-02-11T18:00:00Z"
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512068426357",
