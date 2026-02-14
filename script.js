@@ -488,24 +488,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const familyName = Object.keys(familyMembers).find(name => name.toLowerCase() === cleanName.toLowerCase());
 
+            let displayName, theme, icon;
+
             if (familyName && !isGuestSuffix) {
-                const icon = getUserIcon(familyName);
-                return `
-                    <div class="online-user family-presence">
-                        <div class="voter-bubble ${familyMembers[familyName]?.theme || ''}" style="width: 24px; height: 24px;">
-                            ${icon ? `<img src="${icon}" alt="${familyName}" class="voter-img">` : familyName[0]}
-                        </div>
-                        <span class="online-name family">${familyName}</span>
-                    </div>
-                `;
+                displayName = familyName;
+                theme = familyMembers[familyName]?.theme || 'original';
+                icon = `images/icons/${theme}.png`;
             } else {
-                return `
-                    <div class="online-user guest-badge-fixed">
-                        <span class="online-name guest">${cleanName}</span>
-                        <small class="guest-tag">(Guest)</small>
-                    </div>
-                `;
+                // For guests, use Badminton icon and add (Guest) label
+                displayName = cleanName + ' (Guest)';
+                theme = 'badminton';
+                icon = `images/icons/badminton.png`;
             }
+
+            return `
+                <div class="online-user">
+                    <div class="voter-bubble ${theme}" style="width: 24px; height: 24px;">
+                        <img src="${icon}" alt="${displayName}" class="voter-img" onerror="this.style.display='none'; this.parentElement.textContent='${displayName[0]}'">
+                    </div>
+                    <span class="online-name">${displayName}</span>
+                </div>
+            `;
         }).join('');
     }
 
