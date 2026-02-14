@@ -38,6 +38,7 @@
                             <option value="pochacco">Pochacco</option>
                             <option value="kuromi">Kuromi</option>
                             <option value="hello-kitty">Hello Kitty</option>
+                            <option value="badminton">🏸 Badminton</option>
                         </select>
                     </div>
                 </div>
@@ -157,19 +158,67 @@
     <div id="login-modal" class="modal-overlay">
         <div class="modal-content login-box">
             <h2>Welcome to 程晞大家庭</h2>
-            <p>Please select who you are:</p>
-            <select id="user-select">
-                <option value="" disabled selected>Select Member</option>
-                <option value="Kenny">Kenny</option>
-                <option value="Gubie">Gubie</option>
-                <option value="Hayley">Hayley</option>
-                <option value="Chloe">Chloe</option>
-            </select>
-            <div id="secret-input-container" style="display: none;">
-                <p>What Sanrio Character do you like?</p>
-                <input type="text" id="user-secret" placeholder="Character Name">
-                <button id="btn-login" class="btn-view">Login</button>
-                <p id="login-error" class="error-message" style="display: none;">Incorrect secret. Try again!</p>
+            <p>How would you like to join?</p>
+
+            <div class="login-mode-tabs">
+                <button type="button" class="login-tab active" data-mode="family">👨‍👩‍👧‍👦 Family</button>
+                <button type="button" class="login-tab" data-mode="guest">🎾 Guest</button>
+            </div>
+
+            <!-- Family Login -->
+            <div id="family-login" class="login-panel active">
+                <select id="user-select">
+                    <option value="" disabled selected>Select Member</option>
+                    <option value="Kenny">Kenny</option>
+                    <option value="Gubie">Gubie</option>
+                    <option value="Hayley">Hayley</option>
+                    <option value="Chloe">Chloe</option>
+                </select>
+                <div id="secret-input-container" style="display: none;">
+                    <p>What Sanrio Character do you like?</p>
+                    <input type="text" id="user-secret" placeholder="Character Name">
+                    <button id="btn-login" class="btn-view">Login</button>
+                    <p id="login-error" class="error-message" style="display: none;">Incorrect secret. Try again!</p>
+                </div>
+            </div>
+
+            <!-- Guest Login -->
+            <div id="guest-login" class="login-panel">
+                <input type="text" id="guest-name" placeholder="Enter your name" maxlength="20">
+                <p class="guest-sport-label">What sport do you like?</p>
+                <div class="sport-options">
+                    <label class="sport-option">
+                        <input type="radio" name="guest-sport" value="badminton">
+                        <span class="sport-card">
+                            <span class="sport-emoji">🏸</span>
+                            <span class="sport-name">Badminton</span>
+                        </span>
+                    </label>
+                    <label class="sport-option">
+                        <input type="radio" name="guest-sport" value="football">
+                        <span class="sport-card">
+                            <span class="sport-emoji">⚽</span>
+                            <span class="sport-name">Football</span>
+                        </span>
+                    </label>
+                    <label class="sport-option">
+                        <input type="radio" name="guest-sport" value="basketball">
+                        <span class="sport-card">
+                            <span class="sport-emoji">🏀</span>
+                            <span class="sport-name">Basketball</span>
+                        </span>
+                    </label>
+                    <label class="sport-option">
+                        <input type="radio" name="guest-sport" value="tennis">
+                        <span class="sport-card">
+                            <span class="sport-emoji">🎾</span>
+                            <span class="sport-name">Tennis</span>
+                        </span>
+                    </label>
+                </div>
+                <button id="btn-guest-login" class="btn-view">Join as Guest</button>
+                <p id="guest-login-error" class="error-message" style="display: none;">Please enter your name and pick a
+                    sport!</p>
             </div>
         </div>
     </div>
