@@ -477,22 +477,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         presenceList.innerHTML = `<span class="online-label">🟢 Online:</span>` + displayUsers.map(u => {
-            const isFamily = !!familyMembers[u.user_name];
+            // Case-insensitive check against family members
+            const familyName = Object.keys(familyMembers).find(name => name.toLowerCase() === u.user_name.toLowerCase());
+            const isFamily = !!familyName;
+
             if (isFamily) {
-                const icon = getUserIcon(u.user_name);
+                const icon = getUserIcon(familyName);
                 return `
-                    <div class="online-user">
-                        <div class="voter-bubble ${familyMembers[u.user_name]?.theme || ''}" style="width: 24px; height: 24px; font-size: 0.6rem;">
-                            ${icon ? `<img src="${icon}" alt="${u.user_name}" class="voter-img">` : u.user_name[0]}
+                    <div class="online-user family-presence">
+                        <div class="voter-bubble ${familyMembers[familyName]?.theme || ''}" style="width: 26px; height: 26px;">
+                            ${icon ? `<img src="${icon}" alt="${familyName}" class="voter-img">` : familyName[0]}
                         </div>
-                        <span>${u.user_name}</span>
+                        <span class="user-name">${familyName}</span>
                     </div>
                 `;
             } else {
                 // Guest Display
                 return `
                     <div class="online-user guest-presence">
-                        <span>${u.user_name} (Guest)</span>
+                        <div class="guest-badge">
+                            <span>${u.user_name}</span>
+                            <small>(Guest)</small>
+                        </div>
                     </div>
                 `;
             }
