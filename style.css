@@ -1533,7 +1533,15 @@ html {
   font-weight: 600 !important;
   color: var(--text-dark) !important;
   margin-top: 1rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.guest-hint {
+  font-size: 0.85rem !important;
+  color: var(--primary) !important;
+  font-style: italic;
   margin-bottom: 0.75rem !important;
+  opacity: 0.85;
 }
 
 .sport-options {

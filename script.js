@@ -41,14 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'Chloe': { secret: 'Hello Kitty', theme: 'hello-kitty' }
     };
 
-    // Sport-to-Theme mapping for guests
-    const sportThemes = {
-        'badminton': 'badminton',
-        'football': 'original',
-        'basketball': 'xo',
-        'tennis': 'pochacco'
-    };
-
     // Theme Logic
     const themes = ['original', 'xo', 'pochacco', 'kuromi', 'hello-kitty', 'badminton'];
 
@@ -213,21 +205,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function handleGuestLogin() {
         const guestName = guestNameInput.value.trim();
-        const sportRadio = document.querySelector('input[name="guest-sport"]:checked');
+        const sportAnswer = document.getElementById('guest-sport-answer').value.trim();
 
-        if (!guestName || !sportRadio) {
+        if (!guestName || !sportAnswer) {
             guestLoginError.style.display = 'block';
             return;
         }
 
-        const sport = sportRadio.value;
-        const selectedTheme = sportThemes[sport] || 'original';
+        // Check if the answer is badminton (case-insensitive)
+        if (sportAnswer.toLowerCase() !== 'badminton') {
+            guestLoginError.style.display = 'block';
+            return;
+        }
+
+        const selectedTheme = 'badminton';
 
         // 1. Store in LocalStorage
         localStorage.setItem('carbuy-user', guestName);
         localStorage.setItem('carbuy-theme', selectedTheme);
         localStorage.setItem('carbuy-guest', 'true');
-        localStorage.setItem('carbuy-sport', sport);
+        localStorage.setItem('carbuy-sport', 'badminton');
 
         // 2. Apply theme
         applyTheme(selectedTheme);
@@ -259,6 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnGuestLogin.addEventListener('click', handleGuestLogin);
     guestNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleGuestLogin();
+    });
+    document.getElementById('guest-sport-answer').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleGuestLogin();
     });
 
