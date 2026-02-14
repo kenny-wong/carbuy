@@ -9,7 +9,8 @@
         "url": "https://www.autotrader.co.uk/car-details/202509266651017?utm_source=share&utm_medium=android-app",
         "created_at": "2026-02-14T15:55:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 115
     },
     {
         "title": "Nissan Cube 1.5 V Selection-Grade 4-Ulez 5dr",
@@ -21,7 +22,8 @@
         "url": "https://www.autotrader.co.uk/car-details/202507304951000?utm_source=share&utm_medium=android-app",
         "created_at": "2026-02-14T15:56:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 109
     },
     {
         "title": "Nissan Juke 1.6 n-tec CVT Euro 5 5dr",
@@ -33,7 +35,8 @@
         "url": "https://www.autotrader.co.uk/car-details/202510036865579?utm_source=share&utm_medium=android-app",
         "created_at": "2026-02-14T15:57:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 115
     },
     {
         "title": "2014 Honda Jazz 1.4 i-VTEC EX CVT Euro 5 5dr",
@@ -46,7 +49,8 @@
         "created_at": "2026-02-12T12:00:00Z",
         "status": "SOLD",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 99
     },
     {
         "title": "2014 Mercedes-Benz B Class 1.6 B180 BlueEfficiency Sport MPV 5dr Petrol 7G-DCT Euro 5 (s/s) (122 ps)",
@@ -58,7 +62,8 @@
         "url": "http://www.autotrader.co.uk/car-details/202601089001350",
         "created_at": "2026-02-12T11:55:00Z",
         "has_carplay": true,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 122
     },
     {
         "title": "2014 Nissan Cube 1.5 -15 X 80th Special Colour Edition - 5dr",
@@ -70,7 +75,8 @@
         "url": "http://www.autotrader.co.uk/car-details/202512098481105",
         "created_at": "2026-02-12T11:50:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 109
     },
     {
         "title": "2015 Nissan Juke 1.6 Acenta Premium XTRON Euro 6 5dr",
@@ -83,7 +89,8 @@
         "created_at": "2026-02-12T11:45:00Z",
         "status": "SOLD",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 115
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512218737311",
@@ -96,7 +103,8 @@
         "created_at": "2026-02-12T10:00:00Z",
         "status": "SOLD",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 105
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601199244933",
@@ -108,7 +116,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/aa53899fc2e74f7da7741ca6016df77e.jpg",
         "created_at": "2026-02-11T15:30:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 114
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601269426880",
@@ -120,7 +129,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/33312c3fcb3d4471bd1392447d9d01d3.jpg",
         "created_at": "2026-01-20T09:00:00Z",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 122
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202503170255350",
@@ -132,7 +142,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/2ae3bb502a1d4e36abd86efaef2ed8e6.jpg",
         "created_at": "2026-02-10T11:20:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 109
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202509156347333",
@@ -144,7 +155,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/35b98c77f32e48fcb8bdb81687a4a379.jpg",
         "created_at": "2025-12-15T14:45:00Z",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 115
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601269425826",
@@ -156,7 +168,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/2b99e5a034b5466b9361b2a6b09ab1b4.jpg",
         "created_at": "2026-02-01T10:00:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 115
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601159173422",
@@ -178,7 +191,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/1e9949df55ec47718fa7add3beedbeca.jpg",
         "created_at": "2026-02-12T08:30:00Z",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 105
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202511218057507",
@@ -191,7 +205,8 @@
         "created_at": "2026-01-10T09:15:00Z",
         "status": "SOLD",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 120
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512068426357",
@@ -204,7 +219,8 @@
         "created_at": "2026-01-25T14:20:00Z",
         "status": "SOLD",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 98
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601239381264",
@@ -216,7 +232,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/c52ba6ed8c884f2381c89afcc916c071.jpg",
         "created_at": "2026-02-09T16:45:00Z",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 137
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512298831654",
@@ -228,7 +245,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/9a1bad66e4f845268bf4549f47b1e76d.jpg",
         "created_at": "2026-01-05T11:00:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 98
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601269434868",
@@ -250,7 +268,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/w800/6b77f3dce90a482ab26a43342e8847a1.jpg",
         "created_at": "2026-02-12T09:00:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 84
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202602089767547",
@@ -262,7 +281,8 @@
         "image_url": "https://m.atcdn.co.uk/a/media/w800/2558be3321fa4e7cb8e16a3dff37806c.jpg",
         "created_at": "2026-02-08T10:00:00Z",
         "has_carplay": null,
-        "has_rear_camera": null
+        "has_rear_camera": null,
+        "horsepower": 98
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202602029619766",
@@ -274,6 +294,7 @@
         "image_url": "https://m.atcdn.co.uk/a/media/w800/e99eb5cc21b04573a406d4868f4904d3.jpg",
         "created_at": "2026-02-02T10:00:00Z",
         "has_carplay": null,
-        "has_rear_camera": true
+        "has_rear_camera": true,
+        "horsepower": 98
     }
 ]

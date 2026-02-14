@@ -932,6 +932,75 @@ input[type=range] {
   padding: 4px 0;
 }
 
+/* Horsepower Spec */
+.spec-hp {
+  position: relative;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.hp-tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--border-color);
+  color: var(--text-light);
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: help;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.hp-tooltip-icon:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.spec-hp::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  color: white;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  width: 200px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.spec-hp::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--secondary);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.spec-hp:hover::after,
+.spec-hp:hover::before {
+  opacity: 1;
+}
+
 /* Features Section on Cards */
 .features-section {
   margin-bottom: 1rem;
