@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const featuresToggle = document.getElementById('features-toggle');
     const featuresMenu = document.getElementById('features-menu');
     const featuresDropdown = document.getElementById('features-dropdown');
+    const myVotesFilter = document.getElementById('my-votes-filter');
     const themeSelect = document.getElementById('theme-select');
     const leaderboardList = document.getElementById('leaderboard-list');
     const userDisplay = document.getElementById('user-display');
@@ -646,6 +647,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (requireCarplay && car.has_carplay !== true) return false;
             if (requireRearCamera && car.has_rear_camera !== true) return false;
 
+            // My Votes filter
+            if (myVotesFilter.checked) {
+                const currentUser = localStorage.getItem('carbuy-user');
+                const hasMyVote = allVotes.some(v => v.car_url === car.url && v.user_name === currentUser);
+                if (!hasMyVote) return false;
+            }
+
             return true;
         });
 
@@ -699,6 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hideSoldFilter.addEventListener('change', applyFilters);
     filterCarplay.addEventListener('change', () => { updateFeaturesLabel(); applyFilters(); });
     filterRearCamera.addEventListener('change', () => { updateFeaturesLabel(); applyFilters(); });
+    myVotesFilter.addEventListener('change', applyFilters);
 
     // Features dropdown toggle
     featuresToggle.addEventListener('click', (e) => {
