@@ -296,25 +296,28 @@ header {
   display: inline-block;
 }
 
-.guest-presence-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1.5px solid var(--primary);
-  padding: 4px 12px;
-  border-radius: 20px;
+.guest-presence-v3 {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  background: white !important;
+  border: 2px solid var(--primary) !important;
+  padding: 4px 14px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+.guest-name-v3 {
+  color: var(--secondary) !important;
+  font-weight: 900 !important;
+  font-size: 0.95rem !important;
+}
+
+.guest-label-v3 {
   color: var(--primary) !important;
-}
-
-.guest-name-text {
-  font-weight: 800;
-}
-
-.guest-label {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  font-weight: 600;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  opacity: 0.9;
 }
 
 @keyframes slideInLeft {

@@ -430,11 +430,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentUser = localStorage.getItem('carbuy-user');
         if (!currentUser) return;
 
+        const isGuest = localStorage.getItem('carbuy-guest') === 'true';
+        const presenceName = isGuest ? currentUser + ' (Guest)' : currentUser;
+
         try {
             await fetch('/api/presence', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user_name: currentUser })
+                body: JSON.stringify({ user_name: presenceName })
             });
         } catch (error) {
             console.error('Heartbeat failed:', error);
@@ -477,26 +480,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         presenceList.innerHTML = `<span class="online-label">🟢 Online:</span>` + displayUsers.map(u => {
-            const userName = u.user_name || 'Anonymous';
-            // Case-insensitive check against family members
-            const familyName = Object.keys(familyMembers).find(name => name.toLowerCase() === userName.toLowerCase());
+            if (!u.user_name) return '';
 
-            if (familyName) {
-                const icon = getUserIcon(familyName);
+            const rawName = u.user_name;
+            const isGuestSuffix = rawName.toLowerCase().includes('(guest)');
+            const cleanName = rawName.replace(/\s*\(guest\)/i, '').trim();
+
+            const isFamily = Object.keys(familyMembers).some(name => name.toLowerCase() === cleanName.toLowerCase());
+            const displayFamilyName = Object.keys(familyMembers).find(name => name.toLowerCase() === cleanName.toLowerCase());
+
+            if (isFamily && !isGuestSuffix) {
+                const icon = getUserIcon(displayFamilyName);
                 return `
                     <div class="online-user family-presence">
-                        <div class="voter-bubble ${familyMembers[familyName]?.theme || ''}" style="width: 26px; height: 26px;">
-                            ${icon ? `<img src="${icon}" alt="${familyName}" class="voter-img">` : familyName[0]}
+                        <div class="voter-bubble ${familyMembers[displayFamilyName]?.theme || ''}" style="width: 26px; height: 26px;">
+                            ${icon ? `<img src="${icon}" alt="${displayFamilyName}" class="voter-img">` : displayFamilyName[0]}
                         </div>
-                        <span class="user-name">${familyName}</span>
+                        <span class="user-name" style="color: var(--secondary) !important; font-weight: 800;">${displayFamilyName}</span>
                     </div>
                 `;
             } else {
-                // Guest Display: simple text e.g. "Test (Guest)"
                 return `
-                    <div class="online-user guest-presence-badge">
-                        <span class="guest-name-text">${userName}</span>
-                        <span class="guest-label">(Guest)</span>
+                    <div class="online-user guest-presence-v3">
+                        <span class="guest-name-v3">${cleanName}</span>
+                        <span class="guest-label-v3">(Guest)</span>
                     </div>
                 `;
             }
