@@ -660,6 +660,38 @@ input[type=range] {
   }
 }
 
+/* Sold States */
+.card.is-sold {
+  background: #f1f2f6;
+  /* Solid light grey background */
+  border-color: #d1d8e0;
+  opacity: 0.95;
+}
+
+.card.is-sold:hover {
+  transform: translateY(-4px);
+  /* Smaller lift */
+  border-color: #747d8c;
+}
+
+.card.is-sold .card-image {
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.card.is-sold .btn-vote,
+.card.is-sold .btn-view {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+  pointer-events: none;
+  /* Disable interaction */
+}
+
+.card.is-sold .card-price {
+  color: #747d8c;
+  /* De-emphasize price */
+}
+
 .card-image-wrapper {
   height: 220px;
   overflow: hidden;
