@@ -185,40 +185,11 @@
             <!-- Guest Login -->
             <div id="guest-login" class="login-panel">
                 <input type="text" id="guest-name" placeholder="Enter your name" maxlength="20">
-                <p class="guest-sport-label">What sport do you like?</p>
-                <div class="sport-options">
-                    <label class="sport-option">
-                        <input type="radio" name="guest-sport" value="badminton">
-                        <span class="sport-card">
-                            <span class="sport-emoji">🏸</span>
-                            <span class="sport-name">Badminton</span>
-                        </span>
-                    </label>
-                    <label class="sport-option">
-                        <input type="radio" name="guest-sport" value="football">
-                        <span class="sport-card">
-                            <span class="sport-emoji">⚽</span>
-                            <span class="sport-name">Football</span>
-                        </span>
-                    </label>
-                    <label class="sport-option">
-                        <input type="radio" name="guest-sport" value="basketball">
-                        <span class="sport-card">
-                            <span class="sport-emoji">🏀</span>
-                            <span class="sport-name">Basketball</span>
-                        </span>
-                    </label>
-                    <label class="sport-option">
-                        <input type="radio" name="guest-sport" value="tennis">
-                        <span class="sport-card">
-                            <span class="sport-emoji">🎾</span>
-                            <span class="sport-name">Tennis</span>
-                        </span>
-                    </label>
-                </div>
+                <p class="guest-sport-label">What sport do we play? 🏟️</p>
+                <p class="guest-hint">💡 Hint: We play at club PRIMO</p>
+                <input type="text" id="guest-sport-answer" placeholder="Type the sport...">
                 <button id="btn-guest-login" class="btn-view">Join as Guest</button>
-                <p id="guest-login-error" class="error-message" style="display: none;">Please enter your name and pick a
-                    sport!</p>
+                <p id="guest-login-error" class="error-message" style="display: none;">Incorrect! Try again 😊</p>
             </div>
         </div>
     </div>
