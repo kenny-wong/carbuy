@@ -215,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if the answer is badminton (case-insensitive)
         if (sportAnswer.toLowerCase() !== 'badminton') {
             guestLoginError.style.display = 'block';
+            document.getElementById('guest-hint').style.display = 'block';
             return;
         }
 
