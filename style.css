@@ -524,6 +524,38 @@ header {
   color: var(--secondary);
 }
 
+/* Checkbox Styling */
+.checkbox-group {
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 700 !important;
+  color: var(--secondary);
+  transition: all 0.2s;
+}
+
+.checkbox-container input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.checkbox-container:hover {
+  color: var(--primary);
+}
+
+.checkbox-label {
+  font-size: 0.95rem;
+}
+
 /* Select Styling */
 .select-wrapper {
   position: relative;
