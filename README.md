@@ -209,6 +209,9 @@ This project includes AI-assisted workflows (in `.agent/workflows/`) for managin
 ### `/add-cars` — Add New Cars
 Provide Autotrader UK URLs → AI scrapes the data, updates `car_data.json`, creates a Supabase migration, pushes to DB, commits, and deploys.
 
+### `/update-car-status` — Refresh Sold Status
+AI checks all live URLs → Marks sold cars with a "SOLD" badge, removes their "NEW" badges, and clears their votes automatically.
+
 ### `/delete-car` — Delete a Car
 Provide the car URL → AI removes from `car_data.json`, creates a DELETE migration, pushes to Supabase via CLI, commits, and verifies deployment.
 
