@@ -528,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const shortTitle = parts.slice(0, 2).join(' ');
 
             const card = document.createElement('article');
-            card.className = 'card';
+            card.className = `card ${car.status === 'SOLD' ? 'is-sold' : ''}`;
             card.id = carId; // Set unique ID
             card.innerHTML = `
                 <div class="card-image-wrapper">
@@ -565,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     
                     <div class="card-actions">
-                        <button class="btn-vote ${hasVoted ? 'active' : ''}" data-url="${car.url}">
+                        <button class="btn-vote ${hasVoted ? 'active' : ''}" data-url="${car.url}" ${car.status === 'SOLD' ? 'disabled' : ''}>
                             <i class="vote-icon">♥</i> ${hasVoted ? 'Voted' : 'Vote'}
                         </button>
                     </div>
@@ -574,11 +574,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Add listener to vote button
-            card.querySelector('.btn-vote').addEventListener('click', (e) => {
-                e.preventDefault();
-                toggleVote(car.url);
-            });
+            // Add listener to vote button if not sold
+            const voteBtn = card.querySelector('.btn-vote');
+            if (car.status !== 'SOLD') {
+                voteBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleVote(car.url);
+                });
+            }
 
             listingsContainer.appendChild(card);
         });
