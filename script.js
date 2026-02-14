@@ -248,20 +248,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Map counts back to car details
         const rankedCars = Object.keys(voteCounts).map(url => {
             const car = allCars.find(c => c.url === url);
-            let displayTitle = 'Unknown Car';
+            let lbDisplayTitle = 'Unknown Car';
             if (car) {
-                // Shorten title: "2014 Honda Jazz 1.4 i-VTEC..." -> "Honda Jazz"
-                // Remove year (first 4 digits)
+                // Format: "2014 Honda Jazz (Price)"
+                const yearMatch = car.title.match(/^\d{4}/);
+                const year = yearMatch ? yearMatch[0] : '';
                 const withoutYear = car.title.replace(/^\d{4}\s+/, '');
-                // Take only first two words (Make and Model)
                 const parts = withoutYear.split(' ');
-                displayTitle = parts.slice(0, 2).join(' ');
+                const brandModel = parts.slice(0, 2).join(' ');
+                lbDisplayTitle = `${year} ${brandModel} (${car.price})`;
             }
             return {
                 url,
                 count: voteCounts[url],
-                title: displayTitle,
-                fullTitle: car ? car.title : 'Unknown Car',
+                title: lbDisplayTitle,
                 voters: allVotes.filter(v => v.car_url === url).map(v => v.user_name)
             };
         }).sort((a, b) => b.count - a.count).slice(0, 10);
