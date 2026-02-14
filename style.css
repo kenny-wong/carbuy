@@ -894,6 +894,17 @@ input[type=range] {
   font-size: 10px;
 }
 
+.spec-item.feature-unknown {
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+.spec-item.feature-unknown .spec-icon::after {
+  content: "?";
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .btn-view {
   margin-top: auto;
   /* Ensure it stays at the bottom */
