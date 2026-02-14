@@ -477,11 +477,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         presenceList.innerHTML = `<span class="online-label">🟢 Online:</span>` + displayUsers.map(u => {
+            const userName = u.user_name || 'Anonymous';
             // Case-insensitive check against family members
-            const familyName = Object.keys(familyMembers).find(name => name.toLowerCase() === u.user_name.toLowerCase());
-            const isFamily = !!familyName;
+            const familyName = Object.keys(familyMembers).find(name => name.toLowerCase() === userName.toLowerCase());
 
-            if (isFamily) {
+            if (familyName) {
                 const icon = getUserIcon(familyName);
                 return `
                     <div class="online-user family-presence">
@@ -492,13 +492,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             } else {
-                // Guest Display
+                // Guest Display: simple text e.g. "Test (Guest)"
                 return `
-                    <div class="online-user guest-presence">
-                        <div class="guest-badge">
-                            <span>${u.user_name}</span>
-                            <small>(Guest)</small>
-                        </div>
+                    <div class="online-user guest-presence-badge">
+                        <span class="guest-name-text">${userName}</span>
+                        <span class="guest-label">(Guest)</span>
                     </div>
                 `;
             }
