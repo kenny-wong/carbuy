@@ -248,10 +248,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Map counts back to car details
         const rankedCars = Object.keys(voteCounts).map(url => {
             const car = allCars.find(c => c.url === url);
+            let displayTitle = 'Unknown Car';
+            if (car) {
+                // Shorten title: "2014 Honda Jazz 1.4 i-VTEC..." -> "Honda Jazz"
+                // Remove year (first 4 digits)
+                const withoutYear = car.title.replace(/^\d{4}\s+/, '');
+                // Take only first two words (Make and Model)
+                const parts = withoutYear.split(' ');
+                displayTitle = parts.slice(0, 2).join(' ');
+            }
             return {
                 url,
                 count: voteCounts[url],
-                title: car ? car.title : 'Unknown Car',
+                title: displayTitle,
+                fullTitle: car ? car.title : 'Unknown Car',
                 voters: allVotes.filter(v => v.car_url === url).map(v => v.user_name)
             };
         }).sort((a, b) => b.count - a.count).slice(0, 10);
@@ -506,6 +516,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Using last segment of URL as ID
             const carId = 'car-' + car.url.split('/').pop().split('?')[0];
 
+            // Shorten main title: "2014 Honda Jazz 1.4 i-VTEC..." -> "Honda Jazz"
+            const withoutYear = car.title.replace(/^\d{4}\s+/, '');
+            const parts = withoutYear.split(' ');
+            const shortTitle = parts.slice(0, 2).join(' ');
+
             const card = document.createElement('article');
             card.className = 'card';
             card.id = carId; // Set unique ID
@@ -524,7 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="card-content">
-                    <h2 class="card-title">${car.title}</h2>
+                    <h2 class="card-title">${shortTitle}</h2>
+                    <p class="card-description">${car.title}</p>
                     <div class="card-price">${car.price}</div>
                     
                     <div class="specs-grid">
