@@ -4,7 +4,7 @@ A premium, interactive dashboard for the family to browse, filter, vote on, and 
 
 **🔗 Live Site**: [https://carbuy-chi.vercel.app](https://carbuy-chi.vercel.app)
 
-**Current Version**: `v1.1.4` (Managed via `.cursorrules`)
+**Current Version**: `v1.1.5` (Managed via `.cursorrules`)
 
 ---
 
@@ -86,7 +86,7 @@ carbuy/
 ├── style.css                  # All styles + themes + responsive breakpoints
 ├── script.js                  # Client logic (filters, votes, presence, guest login)
 ├── car_data.json              # Car listing data (JSON) - source of truth for UI
-├── package.json               # Node.js deps + app version (v1.1.4)
+├── package.json               # Node.js deps + app version (v1.1.5)
 ├── vercel.json                # Vercel routing configuration
 │
 ├── api/                       # Vercel serverless functions
