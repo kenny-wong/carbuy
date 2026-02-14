@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('Failed to load vehicle data');
             rawData = await response.json();
         }
-        // Remove unavailable cars immediately
+        // Keep available and sold cars
         try {
             allCars = rawData.filter(car => car.title !== "Unavailable" && car.price !== null);
             filteredCars = [...allCars];
@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let isNew = false;
             let relativeDate = "";
 
-            if (createdDate) {
+            if (createdDate && car.status !== 'SOLD') {
                 const diffTime = Math.abs(Date.now() - createdDate.getTime());
                 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
                 isNew = diffDays <= 3;
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.id = carId; // Set unique ID
             card.innerHTML = `
                 <div class="card-image-wrapper">
-                    <span class="status-badge">Available</span>
+                    <span class="status-badge ${car.status === 'SOLD' ? 'sold' : ''}">${car.status || 'Available'}</span>
                     ${isNew ? `<span class="status-badge new">New: ${relativeDate}</span>` : ''}
                     <img src="${image}" alt="${car.title}" class="card-image" loading="lazy">
                     <div class="card-voters-overlay">
