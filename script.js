@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const engineFilter = document.getElementById('engine-filter');
     const sortBy = document.getElementById('sort-by');
     const hideSoldFilter = document.getElementById('hide-sold-filter');
+    const filterCarplay = document.getElementById('filter-carplay');
+    const filterRearCamera = document.getElementById('filter-rear-camera');
+    const featuresToggle = document.getElementById('features-toggle');
+    const featuresMenu = document.getElementById('features-menu');
+    const featuresDropdown = document.getElementById('features-dropdown');
     const themeSelect = document.getElementById('theme-select');
     const leaderboardList = document.getElementById('leaderboard-list');
     const userDisplay = document.getElementById('user-display');
@@ -552,21 +557,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="specs-grid">
                         <div class="spec-item">
-                            <i class="spec-icon mileage"></i> <span>${car.mileage}</span>
+                            <span>${car.mileage}</span>
                         </div>
                         <div class="spec-item">
-                            <i class="spec-icon transmission"></i> <span>${car.transmission}</span>
+                            <span>${car.transmission}</span>
                         </div>
                         <div class="spec-item">
-                            <i class="spec-icon engine"></i> <span>${car.engine_fuel}</span>
-                        </div>
-                        <div class="spec-item ${car.has_carplay === true ? 'feature-yes' : car.has_carplay === false ? 'feature-no' : 'feature-unknown'}">
-                            <i class="spec-icon carplay"></i> <span>CarPlay: ${car.has_carplay === true ? 'Yes' : car.has_carplay === false ? 'No' : 'Unknown'}</span>
-                        </div>
-                        <div class="spec-item ${car.has_rear_camera === true ? 'feature-yes' : car.has_rear_camera === false ? 'feature-no' : 'feature-unknown'}">
-                            <i class="spec-icon camera"></i> <span>Rear Cam: ${car.has_rear_camera === true ? 'Yes' : car.has_rear_camera === false ? 'No' : 'Unknown'}</span>
+                            <span>${car.engine_fuel}</span>
                         </div>
                     </div>
+                    ${(car.has_carplay === true || car.has_rear_camera === true) ? `
+                    <div class="features-section">
+                        <div class="features-divider"></div>
+                        <div class="features-list">
+                            ${car.has_carplay === true ? '<span class="feature-tag">🎵 CarPlay</span>' : ''}
+                            ${car.has_rear_camera === true ? '<span class="feature-tag">📷 Rear Cam</span>' : ''}
+                        </div>
+                    </div>` : ''}
                     
                     <div class="card-actions">
                         <button class="btn-vote ${hasVoted ? 'active' : ''}" data-url="${car.url}" ${car.status === 'SOLD' ? 'disabled' : ''}>
@@ -618,6 +625,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedEngine = engineFilter.value;
         const sortValue = sortBy.value;
         const shouldHideSold = hideSoldFilter.checked;
+        const requireCarplay = filterCarplay.checked;
+        const requireRearCamera = filterRearCamera.checked;
 
         // 1. Filter
         filteredCars = allCars.filter(car => {
@@ -634,6 +643,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectedModel && shortTitle !== selectedModel) return false;
             if (selectedEngine && car.engine_fuel !== selectedEngine) return false;
             if (shouldHideSold && car.status === 'SOLD') return false;
+            if (requireCarplay && car.has_carplay !== true) return false;
+            if (requireRearCamera && car.has_rear_camera !== true) return false;
 
             return true;
         });
@@ -686,6 +697,23 @@ document.addEventListener('DOMContentLoaded', () => {
     engineFilter.addEventListener('change', applyFilters);
     sortBy.addEventListener('change', applyFilters);
     hideSoldFilter.addEventListener('change', applyFilters);
+    filterCarplay.addEventListener('change', () => { updateFeaturesLabel(); applyFilters(); });
+    filterRearCamera.addEventListener('change', () => { updateFeaturesLabel(); applyFilters(); });
+
+    // Features dropdown toggle
+    featuresToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        featuresDropdown.classList.toggle('open');
+    });
+    featuresMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => featuresDropdown.classList.remove('open'));
+
+    function updateFeaturesLabel() {
+        const selected = [];
+        if (filterCarplay.checked) selected.push('CarPlay');
+        if (filterRearCamera.checked) selected.push('Rear Cam');
+        featuresToggle.innerHTML = (selected.length ? selected.join(', ') : 'Any') + ' <span class="dropdown-arrow">▼</span>';
+    }
 
     // Start App
     init();
