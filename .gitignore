@@ -417,7 +417,7 @@ FodyWeavers.xsd
 *.msm
 *.msp
 .vercel
-supabase/
+supabase/*
 !supabase/migrations/
 .env*
 .agent
