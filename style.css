@@ -91,6 +91,23 @@
   --btn-text: #ffffff;
 }
 
+/* Badminton Theme */
+[data-theme="badminton"] {
+  --primary: #4CAF50;
+  /* Sporty Green */
+  --secondary: #1B5E20;
+  /* Deep Green */
+  --text-dark: #1B5E20;
+  --text-light: #558B2F;
+  --bg-gradient: linear-gradient(135deg, #E8F5E9 0%, #A5D6A7 100%);
+  --card-bg: #F1F8E9;
+  --border-color: #66BB6A;
+  --success: #2E7D32;
+  --danger: #E53935;
+  --character-img: url('images/badminton.png');
+  --btn-bg: #2E7D32;
+  --btn-text: #FFFFFF;
+}
 
 * {
   box-sizing: border-box;
@@ -1468,6 +1485,104 @@ html {
   font-size: 0.95rem;
   margin-top: 15px;
   font-weight: 500;
+}
+
+/* Login Mode Tabs */
+.login-mode-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--primary);
+}
+
+.login-tab {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--primary);
+}
+
+.login-tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+.login-tab:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Login Panels */
+.login-panel {
+  display: none;
+}
+
+.login-panel.active {
+  display: block;
+}
+
+/* Guest Sport Selection */
+.guest-sport-label {
+  font-weight: 600 !important;
+  color: var(--text-dark) !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.sport-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.sport-option {
+  cursor: pointer;
+}
+
+.sport-option input[type="radio"] {
+  display: none;
+}
+
+.sport-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem 0.5rem;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.6);
+  transition: all 0.2s;
+}
+
+.sport-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sport-option input[type="radio"]:checked+.sport-card {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.sport-emoji {
+  font-size: 2rem;
+}
+
+.sport-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
 }
 
 /* Medium mobile screens - 2 columns */

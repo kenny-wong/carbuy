@@ -41,8 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
         'Chloe': { secret: 'Hello Kitty', theme: 'hello-kitty' }
     };
 
+    // Sport-to-Theme mapping for guests
+    const sportThemes = {
+        'badminton': 'badminton',
+        'football': 'original',
+        'basketball': 'xo',
+        'tennis': 'pochacco'
+    };
+
     // Theme Logic
-    const themes = ['original', 'xo', 'pochacco', 'kuromi', 'hello-kitty'];
+    const themes = ['original', 'xo', 'pochacco', 'kuromi', 'hello-kitty', 'badminton'];
 
     function initTheme() {
         let savedTheme = localStorage.getItem('carbuy-theme');
@@ -50,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (currentUser && familyMembers[currentUser]) {
             savedTheme = familyMembers[currentUser].theme;
+            loginModal.classList.remove('active');
+        } else if (currentUser) {
+            // Guest user - use saved theme
             loginModal.classList.remove('active');
         } else if (!savedTheme) {
             // First time visit: Show login modal
@@ -72,19 +83,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const theme = familyMembers[userName].theme;
             return `images/icons/${theme}.png`;
         }
+        // Guest user - check saved theme
+        const guestTheme = localStorage.getItem('carbuy-theme');
+        if (guestTheme) {
+            return `images/icons/${guestTheme}.png`;
+        }
         return '';
     }
 
     function updateUserDisplay(user) {
-        if (user && familyMembers[user]) {
+        if (user) {
             userDisplay.style.display = 'flex';
             userNameTag.textContent = user;
 
             const iconWrapper = userIcon.parentElement;
             const iconPath = getUserIcon(user);
+            const userTheme = familyMembers[user] ? familyMembers[user].theme : (localStorage.getItem('carbuy-theme') || 'original');
 
             // Reset wrapper
-            iconWrapper.className = 'user-icon-wrapper ' + familyMembers[user].theme;
+            iconWrapper.className = 'user-icon-wrapper ' + userTheme;
             iconWrapper.textContent = '';
             iconWrapper.appendChild(userIcon);
 
@@ -176,6 +193,73 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLogin.addEventListener('click', handleLogin);
     userSecret.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleLogin();
+    });
+
+    // Login Tab Switching
+    document.querySelectorAll('.login-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.login-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            const mode = tab.getAttribute('data-mode');
+            document.getElementById(mode + '-login').classList.add('active');
+        });
+    });
+
+    // Guest Login
+    const btnGuestLogin = document.getElementById('btn-guest-login');
+    const guestNameInput = document.getElementById('guest-name');
+    const guestLoginError = document.getElementById('guest-login-error');
+
+    async function handleGuestLogin() {
+        const guestName = guestNameInput.value.trim();
+        const sportRadio = document.querySelector('input[name="guest-sport"]:checked');
+
+        if (!guestName || !sportRadio) {
+            guestLoginError.style.display = 'block';
+            return;
+        }
+
+        const sport = sportRadio.value;
+        const selectedTheme = sportThemes[sport] || 'original';
+
+        // 1. Store in LocalStorage
+        localStorage.setItem('carbuy-user', guestName);
+        localStorage.setItem('carbuy-theme', selectedTheme);
+        localStorage.setItem('carbuy-guest', 'true');
+        localStorage.setItem('carbuy-sport', sport);
+
+        // 2. Apply theme
+        applyTheme(selectedTheme);
+
+        // 3. Log Audit to DB
+        try {
+            await fetch('/api/audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_name: guestName + ' (Guest)',
+                    selected_theme: selectedTheme
+                })
+            });
+        } catch (err) {
+            console.error('Audit failed:', err);
+        }
+
+        // 4. Update Header
+        updateUserDisplay(guestName);
+
+        // 5. Start Presence Heartbeat
+        sendHeartbeat();
+
+        // 6. Close Modal
+        loginModal.classList.remove('active');
+        guestLoginError.style.display = 'none';
+    }
+
+    btnGuestLogin.addEventListener('click', handleGuestLogin);
+    guestNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleGuestLogin();
     });
 
     let allCars = [];
