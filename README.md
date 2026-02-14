@@ -49,8 +49,6 @@ Each theme includes a full-body character overlay, matching colour palette, and 
 - **Family Members**: Kenny, Gubie, Hayley, Chloe — each with a unique Sanrio secret phrase.
 - **Guest Access**: New mode for visitors:
     - Custom guest name entry.
-    - **Secret Question**: "What sport do we play?" (Hint: Club PRIMO).
-    - Correct answer ("Badminton") unlocks the site and auto-applies the Badminton theme.
 - **Personalised**: Auto-applies the member's theme and avatar on login.
 - **Audit Logging**: All entrance activity is logged to Supabase for analytics.
 
