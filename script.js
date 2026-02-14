@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLogin = document.getElementById('btn-login');
     const loginError = document.getElementById('login-error');
 
+    let lastOnlineUsers = []; // Track who is online for duplicate check
+
     // Member Config
     const familyMembers = {
         'Kenny': { secret: 'XO', theme: 'xo' },
@@ -208,12 +210,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const sportAnswer = document.getElementById('guest-sport-answer').value.trim();
 
         if (!guestName || !sportAnswer) {
+            guestLoginError.textContent = 'Please enter your name and pick a sport!';
+            guestLoginError.style.display = 'block';
+            return;
+        }
+
+        // Duplicated Guest Name Check
+        if (lastOnlineUsers.some(u => u.user_name.toLowerCase() === guestName.toLowerCase())) {
+            guestLoginError.textContent = 'This name is already taken. Please try another one!';
             guestLoginError.style.display = 'block';
             return;
         }
 
         // Check if the answer is badminton (case-insensitive)
         if (sportAnswer.toLowerCase() !== 'badminton') {
+            guestLoginError.textContent = 'Incorrect! Try again 😊';
             guestLoginError.style.display = 'block';
             document.getElementById('guest-hint').style.display = 'block';
             return;
@@ -435,6 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/presence');
             if (response.ok) {
                 const presenceData = await response.json();
+                lastOnlineUsers = presenceData; // Update globally for login check
                 renderPresence(presenceData);
                 return;
             }
@@ -465,15 +477,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         presenceList.innerHTML = `<span class="online-label">🟢 Online:</span>` + displayUsers.map(u => {
-            const icon = getUserIcon(u.user_name);
-            return `
-                <div class="online-user">
-                    <div class="voter-bubble ${familyMembers[u.user_name]?.theme || ''}" style="width: 24px; height: 24px; font-size: 0.6rem;">
-                        ${icon ? `<img src="${icon}" alt="${u.user_name}" class="voter-img">` : u.user_name[0]}
+            const isFamily = !!familyMembers[u.user_name];
+            if (isFamily) {
+                const icon = getUserIcon(u.user_name);
+                return `
+                    <div class="online-user">
+                        <div class="voter-bubble ${familyMembers[u.user_name]?.theme || ''}" style="width: 24px; height: 24px; font-size: 0.6rem;">
+                            ${icon ? `<img src="${icon}" alt="${u.user_name}" class="voter-img">` : u.user_name[0]}
+                        </div>
+                        <span>${u.user_name}</span>
                     </div>
-                    <span>${u.user_name}</span>
-                </div>
-            `;
+                `;
+            } else {
+                // Guest Display
+                return `
+                    <div class="online-user guest-presence">
+                        <span>${u.user_name} (Guest)</span>
+                    </div>
+                `;
+            }
         }).join('');
     }
 

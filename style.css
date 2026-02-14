@@ -265,6 +265,43 @@ header {
   color: var(--secondary);
 }
 
+/* Presence System Styles */
+.presence-list-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.online-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+}
+
+.online-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.guest-presence span {
+  font-weight: 500;
+  color: var(--text-light);
+  font-style: italic;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
 @keyframes slideInLeft {
   from {
     opacity: 0;
