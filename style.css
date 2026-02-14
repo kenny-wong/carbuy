@@ -178,6 +178,13 @@ header {
 /* ... */
 
 /* NEW: Red New Badge with date */
+.status-badge.sold {
+  background: #747d8c;
+  /* Grey */
+  left: auto;
+  right: 1rem;
+}
+
 .status-badge.new {
   background: #e74c3c;
   left: 1rem;
