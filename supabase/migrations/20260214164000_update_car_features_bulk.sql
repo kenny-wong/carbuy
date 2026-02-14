@@ -1,0 +1,22 @@
+-- Bulk update car features based on web check
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202509266651017?utm_source=share&utm_medium=android-app';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202507304951000?utm_source=share&utm_medium=android-app';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202510036865579?utm_source=share&utm_medium=android-app';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'http://www.autotrader.co.uk/car-details/202601269428585';
+UPDATE public.cars SET has_carplay = TRUE, has_rear_camera = TRUE WHERE url = 'http://www.autotrader.co.uk/car-details/202601089001350';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'http://www.autotrader.co.uk/car-details/202512098481105';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'http://www.autotrader.co.uk/car-details/202601309533799';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202512218737311';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202601199244933';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202601269426880';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202503170255350';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202509156347333';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202601269425826';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202511167931805';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202511218057507';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202512068426357';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202601239381264';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202512298831654';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202601179228917';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = NULL WHERE url = 'https://www.autotrader.co.uk/car-details/202602089767547';
+UPDATE public.cars SET has_carplay = NULL, has_rear_camera = TRUE WHERE url = 'https://www.autotrader.co.uk/car-details/202602029619766';

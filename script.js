@@ -560,11 +560,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="spec-item">
                             <i class="spec-icon engine"></i> <span>${car.engine_fuel}</span>
                         </div>
-                        <div class="spec-item ${car.has_carplay ? 'feature-yes' : 'feature-no'}">
-                            <i class="spec-icon carplay"></i> <span>CarPlay: ${car.has_carplay ? 'Yes' : 'No'}</span>
+                        <div class="spec-item ${car.has_carplay === true ? 'feature-yes' : car.has_carplay === false ? 'feature-no' : 'feature-unknown'}">
+                            <i class="spec-icon carplay"></i> <span>CarPlay: ${car.has_carplay === true ? 'Yes' : car.has_carplay === false ? 'No' : 'Unknown'}</span>
                         </div>
-                        <div class="spec-item ${car.has_rear_camera ? 'feature-yes' : 'feature-no'}">
-                            <i class="spec-icon camera"></i> <span>Rear Cam: ${car.has_rear_camera ? 'Yes' : 'No'}</span>
+                        <div class="spec-item ${car.has_rear_camera === true ? 'feature-yes' : car.has_rear_camera === false ? 'feature-no' : 'feature-unknown'}">
+                            <i class="spec-icon camera"></i> <span>Rear Cam: ${car.has_rear_camera === true ? 'Yes' : car.has_rear_camera === false ? 'No' : 'Unknown'}</span>
                         </div>
                     </div>
                     
