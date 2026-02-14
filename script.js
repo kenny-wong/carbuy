@@ -566,6 +566,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="spec-item">
                             <span>${car.engine_fuel}</span>
                         </div>
+                        ${car.horsepower ? `<div class="spec-item spec-hp" title="Horsepower (hp) measures the engine's power output. Higher hp = faster acceleration and more overtaking ability.">
+                            <span>⚡ ${car.horsepower} hp</span>
+                            <span class="hp-tooltip-icon">?</span>
+                        </div>` : ''}
                     </div>
                     ${(car.has_carplay === true || car.has_rear_camera === true) ? `
                     <div class="features-section">
