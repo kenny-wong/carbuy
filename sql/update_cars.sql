@@ -1,42 +1,31 @@
--- Insert 4 new cars from Autotrader
 INSERT INTO cars (title, price, mileage, transmission, engine_fuel, image_url, url, created_at) VALUES
 (
-  '2014 Honda Jazz 1.4 i-VTEC EX CVT Euro 5 5dr',
-  '£6,990',
-  '38,257 miles',
-  'Automatic',
-  '1.4L Petrol',
-  'https://m.atcdn.co.uk/a/media/w800/064bbbd1db474abd8207aa3c128a2b0d.jpg',
-  'http://www.autotrader.co.uk/car-details/202601269428585',
-  NOW()
-),
-(
-  '2014 Mercedes-Benz B Class 1.6 B180 BlueEfficiency Sport MPV 5dr Petrol 7G-DCT Euro 5 (s/s) (122 ps)',
-  '£6,990',
-  '40,418 miles',
-  'Automatic',
-  '1.6L Petrol',
-  'https://m.atcdn.co.uk/a/media/w800/d22b03676287414c9833e1b654aa79bc.jpg',
-  'http://www.autotrader.co.uk/car-details/202601089001350',
-  NOW()
-),
-(
-  '2014 Nissan Cube 1.5 -15 X 80th Special Colour Edition - 5dr',
-  '£7,390',
-  '38,471 miles',
-  'Automatic',
-  '1.5L Petrol',
-  'https://m.atcdn.co.uk/a/media/w800/7e07524976db4368a831cfd85f92a938.jpg',
-  'http://www.autotrader.co.uk/car-details/202512098481105',
-  NOW()
-),
-(
-  '2015 Nissan Juke 1.6 Acenta Premium XTRON Euro 6 5dr',
+  'Nissan Juke 1.6 Acenta Premium XTRON Euro 5 5dr',
   '£7,495',
-  '42,511 miles',
+  '42,000 miles',
   'Automatic',
-  '1.6L Petrol',
-  'https://m.atcdn.co.uk/a/media/w800/018bd463eb0a46369b8be06737b28b69.jpg',
-  'http://www.autotrader.co.uk/car-details/202601309533799',
+  'Petrol',
+  'https://m.atcdn.co.uk/a/media/w800/c762402f4f49488fb2514e74c48a68ee.jpg',
+  'https://www.autotrader.co.uk/car-details/202509266651017?utm_source=share&utm_medium=android-app',
+  NOW()
+),
+(
+  'Nissan Cube 1.5 V Selection-Grade 4-Ulez 5dr',
+  '£7,590',
+  '42,713 miles',
+  'Automatic',
+  'Petrol',
+  'https://m.atcdn.co.uk/a/media/w800/52c60819d4954011943f7e098a37cc68.jpg',
+  'https://www.autotrader.co.uk/car-details/202507304951000?utm_source=share&utm_medium=android-app',
+  NOW()
+),
+(
+  'Nissan Juke 1.6 n-tec CVT Euro 5 5dr',
+  '£7,990',
+  '25,000 miles',
+  'Automatic',
+  'Petrol',
+  'https://m.atcdn.co.uk/a/media/w800/b0e3cd29a6c44f47bb1c472e73cd87fa.jpg',
+  'https://www.autotrader.co.uk/car-details/202510036865579?utm_source=share&utm_medium=android-app',
   NOW()
 );
