@@ -7,7 +7,9 @@
         "engine_fuel": "Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/w800/c762402f4f49488fb2514e74c48a68ee.jpg",
         "url": "https://www.autotrader.co.uk/car-details/202509266651017?utm_source=share&utm_medium=android-app",
-        "created_at": "2026-02-14T15:55:00Z"
+        "created_at": "2026-02-14T15:55:00Z",
+        "has_carplay": true,
+        "has_rear_camera": true
     },
     {
         "title": "Nissan Cube 1.5 V Selection-Grade 4-Ulez 5dr",
@@ -48,7 +50,9 @@
         "engine_fuel": "1.6L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/w800/d22b03676287414c9833e1b654aa79bc.jpg",
         "url": "http://www.autotrader.co.uk/car-details/202601089001350",
-        "created_at": "2026-02-12T11:55:00Z"
+        "created_at": "2026-02-12T11:55:00Z",
+        "has_carplay": false,
+        "has_rear_camera": true
     },
     {
         "title": "2014 Nissan Cube 1.5 -15 X 80th Special Colour Edition - 5dr",
@@ -182,7 +186,9 @@
         "transmission": "Automatic",
         "engine_fuel": "1.5L Petrol Hybrid",
         "image_url": "https://m.atcdn.co.uk/a/media/c52ba6ed8c884f2381c89afcc916c071.jpg",
-        "created_at": "2026-02-09T16:45:00Z"
+        "created_at": "2026-02-09T16:45:00Z",
+        "has_carplay": true,
+        "has_rear_camera": true
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512298831654",
@@ -222,7 +228,8 @@
         "transmission": "Automatic",
         "engine_fuel": "1.2L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/w800/2558be3321fa4e7cb8e16a3dff37806c.jpg",
-        "created_at": "2026-02-08T10:00:00Z"
+        "created_at": "2026-02-08T10:00:00Z",
+        "has_rear_camera": true
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202602029619766",

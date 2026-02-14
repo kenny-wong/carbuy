@@ -848,18 +848,50 @@ input[type=range] {
 .spec-item {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-  color: var(--text-light);
+  gap: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-dark);
   font-weight: 500;
+  padding: 4px 0;
 }
 
-.spec-item i {
-  width: 16px;
-  height: 16px;
+.spec-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
   background-color: var(--secondary);
-  opacity: 0.1;
-  border-radius: 50%;
+  opacity: 0.15;
+  flex-shrink: 0;
+}
+
+/* Feature Status Colors */
+.spec-item.feature-yes {
+  color: var(--success);
+}
+
+.spec-item.feature-yes .spec-icon {
+  background-color: var(--success);
+  opacity: 1;
+  color: white;
+}
+
+.spec-item.feature-yes .spec-icon::after {
+  content: "✓";
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.spec-item.feature-no {
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+.spec-item.feature-no .spec-icon::after {
+  content: "✕";
+  font-size: 10px;
 }
 
 .btn-view {

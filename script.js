@@ -552,16 +552,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="specs-grid">
                         <div class="spec-item">
-                            <i></i> <span>${car.mileage}</span>
+                            <i class="spec-icon mileage"></i> <span>${car.mileage}</span>
                         </div>
                         <div class="spec-item">
-                            <i></i> <span>${car.transmission}</span>
+                            <i class="spec-icon transmission"></i> <span>${car.transmission}</span>
                         </div>
                         <div class="spec-item">
-                            <i></i> <span>Available</span>
+                            <i class="spec-icon engine"></i> <span>${car.engine_fuel}</span>
                         </div>
-                         <div class="spec-item">
-                            <i></i> <span>${car.engine_fuel}</span>
+                        <div class="spec-item ${car.has_carplay ? 'feature-yes' : 'feature-no'}">
+                            <i class="spec-icon carplay"></i> <span>CarPlay: ${car.has_carplay ? 'Yes' : 'No'}</span>
+                        </div>
+                        <div class="spec-item ${car.has_rear_camera ? 'feature-yes' : 'feature-no'}">
+                            <i class="spec-icon camera"></i> <span>Rear Cam: ${car.has_rear_camera ? 'Yes' : 'No'}</span>
                         </div>
                     </div>
                     
