@@ -445,9 +445,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const engines = new Set();
 
         allCars.forEach(car => {
-            // Model: Remove year (first 4 digits)
-            const modelName = car.title.replace(/^\d{4}\s+/, '');
-            models.add(modelName);
+            // Model: Remove year and take first two words (Make and Model)
+            const withoutYear = car.title.replace(/^\d{4}\s+/, '');
+            const parts = withoutYear.split(' ');
+            const shortTitle = parts.slice(0, 2).join(' ');
+            models.add(shortTitle);
 
             // Engine: Just use the raw string, maybe trim
             if (car.engine_fuel) {
@@ -609,11 +611,15 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredCars = allCars.filter(car => {
             const price = parsePrice(car.price);
             const mileage = parseMileage(car.mileage);
-            const modelName = car.title.replace(/^\d{4}\s+/, '');
+
+            // Shorten for filtering: "2014 Honda Jazz..." -> "Honda Jazz"
+            const withoutYear = car.title.replace(/^\d{4}\s+/, '');
+            const parts = withoutYear.split(' ');
+            const shortTitle = parts.slice(0, 2).join(' ');
 
             if (price > maxPrice) return false;
             if (mileage > maxMileage) return false;
-            if (selectedModel && modelName !== selectedModel) return false;
+            if (selectedModel && shortTitle !== selectedModel) return false;
             if (selectedEngine && car.engine_fuel !== selectedEngine) return false;
 
             return true;
@@ -625,8 +631,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const priceB = parsePrice(b.price);
             const mileageA = parseMileage(a.mileage);
             const mileageB = parseMileage(b.mileage);
-            const modelA = a.title.replace(/^\d{4}\s+/, '');
-            const modelB = b.title.replace(/^\d{4}\s+/, '');
+
+            const shortA = a.title.replace(/^\d{4}\s+/, '').split(' ').slice(0, 2).join(' ');
+            const shortB = b.title.replace(/^\d{4}\s+/, '').split(' ').slice(0, 2).join(' ');
+
             const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
             const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
 
@@ -635,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'price-desc': return priceB - priceA;
                 case 'mileage-asc': return mileageA - mileageB;
                 case 'mileage-desc': return mileageB - mileageA;
-                case 'model-asc': return modelA.localeCompare(modelB);
+                case 'model-asc': return shortA.localeCompare(shortB);
                 case 'date-asc': return dateA - dateB;
                 case 'date-desc': return dateB - dateA;
                 default: return 0;
