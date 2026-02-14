@@ -284,40 +284,39 @@ header {
 }
 
 .online-user {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 800 !important;
-  color: var(--secondary) !important;
-}
-
-.user-name {
-  display: inline-block;
-}
-
-.guest-presence-v3 {
   display: flex !important;
   align-items: center !important;
   gap: 0.4rem !important;
-  background: white !important;
-  border: 2px solid var(--primary) !important;
-  padding: 4px 14px !important;
-  border-radius: 20px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
-.guest-name-v3 {
-  color: var(--secondary) !important;
-  font-weight: 900 !important;
+.online-name {
+  font-weight: 800 !important;
   font-size: 0.95rem !important;
+  display: inline-block !important;
 }
 
-.guest-label-v3 {
+.online-name.family {
+  color: var(--secondary) !important;
+}
+
+.online-name.guest {
+  color: var(--secondary) !important;
+}
+
+.guest-badge-fixed {
+  background: white !important;
+  border: 1.5px solid var(--primary) !important;
+  padding: 3px 12px !important;
+  border-radius: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+}
+
+.guest-tag {
   color: var(--primary) !important;
-  font-size: 0.75rem !important;
+  font-size: 0.7rem !important;
   font-weight: 600 !important;
-  opacity: 0.9;
 }
 
 @keyframes slideInLeft {
