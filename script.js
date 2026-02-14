@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modelFilter = document.getElementById('model-filter');
     const engineFilter = document.getElementById('engine-filter');
     const sortBy = document.getElementById('sort-by');
+    const hideSoldFilter = document.getElementById('hide-sold-filter');
     const themeSelect = document.getElementById('theme-select');
     const leaderboardList = document.getElementById('leaderboard-list');
     const userDisplay = document.getElementById('user-display');
@@ -613,6 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedModel = modelFilter.value;
         const selectedEngine = engineFilter.value;
         const sortValue = sortBy.value;
+        const shouldHideSold = hideSoldFilter.checked;
 
         // 1. Filter
         filteredCars = allCars.filter(car => {
@@ -628,6 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (mileage > maxMileage) return false;
             if (selectedModel && shortTitle !== selectedModel) return false;
             if (selectedEngine && car.engine_fuel !== selectedEngine) return false;
+            if (shouldHideSold && car.status === 'SOLD') return false;
 
             return true;
         });
@@ -679,6 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     engineFilter.addEventListener('change', applyFilters);
     sortBy.addEventListener('change', applyFilters);
+    hideSoldFilter.addEventListener('change', applyFilters);
 
     // Start App
     init();
