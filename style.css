@@ -1530,6 +1530,7 @@ html {
 }
 
 /* Login Mode Tabs */
+
 .login-mode-tabs {
   display: flex;
   gap: 0;
@@ -1537,13 +1538,16 @@ html {
   border-radius: 12px;
   overflow: hidden;
   border: 2px solid var(--primary);
+  background: var(--primary);
+  /* Ensures no gaps for active tab */
 }
 
 .login-tab {
   flex: 1;
   padding: 0.75rem 1rem;
   border: none;
-  background: transparent;
+  background: white;
+  /* Default inactive background */
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 600;
@@ -1558,7 +1562,7 @@ html {
 }
 
 .login-tab:hover:not(.active) {
-  background: rgba(0, 0, 0, 0.05);
+  background: #f1f2f6;
 }
 
 /* Login Panels */
