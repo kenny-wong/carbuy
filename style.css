@@ -1551,6 +1551,7 @@ html {
   flex: 1;
   padding: 0.9rem 1rem;
   border: none;
+  margin: 0 !important;
   background: white;
   /* Default inactive background */
   font-family: inherit;
