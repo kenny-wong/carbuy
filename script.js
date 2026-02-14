@@ -482,28 +482,27 @@ document.addEventListener('DOMContentLoaded', () => {
         presenceList.innerHTML = `<span class="online-label">🟢 Online:</span>` + displayUsers.map(u => {
             if (!u.user_name) return '';
 
-            const rawName = u.user_name;
+            const rawName = String(u.user_name);
             const isGuestSuffix = rawName.toLowerCase().includes('(guest)');
-            const cleanName = rawName.replace(/\s*\(guest\)/i, '').trim();
+            const cleanName = rawName.replace(/\s*\(guest\)/i, '').trim() || 'Guest';
 
-            const isFamily = Object.keys(familyMembers).some(name => name.toLowerCase() === cleanName.toLowerCase());
-            const displayFamilyName = Object.keys(familyMembers).find(name => name.toLowerCase() === cleanName.toLowerCase());
+            const familyName = Object.keys(familyMembers).find(name => name.toLowerCase() === cleanName.toLowerCase());
 
-            if (isFamily && !isGuestSuffix) {
-                const icon = getUserIcon(displayFamilyName);
+            if (familyName && !isGuestSuffix) {
+                const icon = getUserIcon(familyName);
                 return `
                     <div class="online-user family-presence">
-                        <div class="voter-bubble ${familyMembers[displayFamilyName]?.theme || ''}" style="width: 26px; height: 26px;">
-                            ${icon ? `<img src="${icon}" alt="${displayFamilyName}" class="voter-img">` : displayFamilyName[0]}
+                        <div class="voter-bubble ${familyMembers[familyName]?.theme || ''}" style="width: 24px; height: 24px;">
+                            ${icon ? `<img src="${icon}" alt="${familyName}" class="voter-img">` : familyName[0]}
                         </div>
-                        <span class="user-name" style="color: var(--secondary) !important; font-weight: 800;">${displayFamilyName}</span>
+                        <span class="online-name family">${familyName}</span>
                     </div>
                 `;
             } else {
                 return `
-                    <div class="online-user guest-presence-v3">
-                        <span class="guest-name-v3">${cleanName}</span>
-                        <span class="guest-label-v3">(Guest)</span>
+                    <div class="online-user guest-badge-fixed">
+                        <span class="online-name guest">${cleanName}</span>
+                        <small class="guest-tag">(Guest)</small>
                     </div>
                 `;
             }
