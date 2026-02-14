@@ -37,7 +37,8 @@
         "engine_fuel": "1.4L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/w800/064bbbd1db474abd8207aa3c128a2b0d.jpg",
         "url": "http://www.autotrader.co.uk/car-details/202601269428585",
-        "created_at": "2026-02-12T12:00:00Z"
+        "created_at": "2026-02-12T12:00:00Z",
+        "status": "SOLD"
     },
     {
         "title": "2014 Mercedes-Benz B Class 1.6 B180 BlueEfficiency Sport MPV 5dr Petrol 7G-DCT Euro 5 (s/s) (122 ps)",
@@ -67,7 +68,8 @@
         "engine_fuel": "1.6L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/w800/018bd463eb0a46369b8be06737b28b69.jpg",
         "url": "http://www.autotrader.co.uk/car-details/202601309533799",
-        "created_at": "2026-02-12T11:45:00Z"
+        "created_at": "2026-02-12T11:45:00Z",
+        "status": "SOLD"
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512218737311",
@@ -77,7 +79,8 @@
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/4c82ad4540a64bb6926d17ac1263915c.jpg",
-        "created_at": "2026-02-12T10:00:00Z"
+        "created_at": "2026-02-12T10:00:00Z",
+        "status": "SOLD"
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601199244933",
@@ -157,7 +160,8 @@
         "transmission": "Automatic",
         "engine_fuel": "1.6L Petrol",
         "image_url": "https://m.atcdn.co.uk/a/media/dbef9e580b56449eaea372ecef5f0e04.jpg",
-        "created_at": "2026-01-10T09:15:00Z"
+        "created_at": "2026-01-10T09:15:00Z",
+        "status": "SOLD"
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202512068426357",
@@ -167,7 +171,8 @@
         "transmission": "Automatic",
         "engine_fuel": "1.3L Petrol Hybrid",
         "image_url": "https://m.atcdn.co.uk/a/media/cc34a6da9ee64abba36f4f322d061022.jpg",
-        "created_at": "2026-01-25T14:20:00Z"
+        "created_at": "2026-01-25T14:20:00Z",
+        "status": "SOLD"
     },
     {
         "url": "https://www.autotrader.co.uk/car-details/202601239381264",
