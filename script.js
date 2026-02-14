@@ -421,7 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
             mileageRange.value = maxMileage;
             mileageDisplay.textContent = `${maxMileage.toLocaleString()} miles`;
 
-            populateDropdowns();
+            populateModels();
+            populateEngines();
             await fetchVotes();
 
             // Set default sort to Date Newest
@@ -436,36 +437,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Populate Dropdowns
-    function populateDropdowns() {
-        // Extract unique Models
-        // Assuming Title format is "Year Make Model" e.g. "2015 Nissan Juke"
-        // We want "Nissan Juke" or just "Juke" if consistent.
-        // Let's try to extract the Make + Model minus the year.
+    function populateModels() {
         const models = new Set();
-        const engines = new Set();
-
         allCars.forEach(car => {
-            // Model: Remove year and take first two words (Make and Model)
             const withoutYear = car.title.replace(/^\d{4}\s+/, '');
             const parts = withoutYear.split(' ');
             const shortTitle = parts.slice(0, 2).join(' ');
             models.add(shortTitle);
-
-            // Engine: Just use the raw string, maybe trim
-            if (car.engine_fuel) {
-                engines.add(car.engine_fuel);
-            }
         });
 
-        // Sort and populate Model
+        modelFilter.innerHTML = '<option value="">All Models</option>';
         Array.from(models).sort().forEach(model => {
             const option = document.createElement('option');
             option.value = model;
             option.textContent = model;
             modelFilter.appendChild(option);
         });
+    }
 
-        // Sort and populate Engine
+    function populateEngines(selectedModel = "") {
+        const engines = new Set();
+        allCars.forEach(car => {
+            const withoutYear = car.title.replace(/^\d{4}\s+/, '');
+            const parts = withoutYear.split(' ');
+            const shortTitle = parts.slice(0, 2).join(' ');
+
+            if (!selectedModel || shortTitle === selectedModel) {
+                if (car.engine_fuel) {
+                    engines.add(car.engine_fuel);
+                }
+            }
+        });
+
+        engineFilter.innerHTML = '<option value="">All Engines</option>';
         Array.from(engines).sort().forEach(engine => {
             const option = document.createElement('option');
             option.value = engine;
@@ -665,7 +669,11 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFilters();
     });
 
-    modelFilter.addEventListener('change', applyFilters);
+    modelFilter.addEventListener('change', () => {
+        engineFilter.value = "";
+        populateEngines(modelFilter.value);
+        applyFilters();
+    });
     engineFilter.addEventListener('change', applyFilters);
     sortBy.addEventListener('change', applyFilters);
 
