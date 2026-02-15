@@ -342,6 +342,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function toggleRemove(car_url, currentStatus) {
+        const currentUser = localStorage.getItem('carbuy-user');
+        if (!currentUser || !familyMembers[currentUser]) return;
+
+        const newStatus = currentStatus === 'REMOVED' ? 'Available' : 'REMOVED';
+        const confirmMsg = newStatus === 'REMOVED'
+            ? 'Are you sure you want to mark this car as REMOVED?'
+            : 'Bring this car back to Available?';
+
+        if (!confirm(confirmMsg)) return;
+
+        try {
+            const response = await fetch('/api/update-car', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ car_url, status: newStatus, user_name: currentUser })
+            });
+            if (response.ok) {
+                // Refresh data
+                await init();
+            }
+        } catch (error) {
+            console.error('Status update failed:', error);
+        }
+    }
+
     function renderLeaderboard() {
         const voteCounts = {};
         allVotes.forEach(v => {
@@ -635,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let isNew = false;
             let relativeDate = "";
 
-            if (createdDate && car.status !== 'SOLD') {
+            if (createdDate && car.status !== 'SOLD' && car.status !== 'REMOVED') {
                 const diffTime = Math.abs(Date.now() - createdDate.getTime());
                 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
                 isNew = diffDays <= 3;
@@ -643,6 +669,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (diffDays === 1) relativeDate = '1d ago';
                 else relativeDate = `${diffDays}d ago`;
             }
+
+            const isFamily = currentUser && familyMembers[currentUser];
 
             // Generate unique ID for scrolling
             // Using last segment of URL as ID
@@ -654,11 +682,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const shortTitle = parts.slice(0, 2).join(' ');
 
             const card = document.createElement('article');
-            card.className = `card ${car.status === 'SOLD' ? 'is-sold' : ''}`;
+            card.className = `card ${car.status === 'SOLD' ? 'is-sold' : ''} ${car.status === 'REMOVED' ? 'is-removed' : ''}`;
             card.id = carId; // Set unique ID
             card.innerHTML = `
                 <div class="card-image-wrapper">
-                    <span class="status-badge ${car.status === 'SOLD' ? 'sold' : ''}">${car.status || 'Available'}</span>
+                    <span class="status-badge ${car.status === 'SOLD' ? 'sold' : ''} ${car.status === 'REMOVED' ? 'removed' : ''}">${car.status || 'Available'}</span>
                     ${isNew ? `<span class="status-badge new">New: ${relativeDate}</span>` : ''}
                     <img src="${image}" alt="${car.title}" class="card-image" loading="lazy">
                     <div class="card-voters-overlay">
@@ -700,21 +728,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>` : ''}
                     
                     <div class="card-actions">
-                        <button class="btn-vote ${hasVoted ? 'active' : ''}" data-url="${car.url}" ${car.status === 'SOLD' ? 'disabled' : ''}>
+                        <button class="btn-vote ${hasVoted ? 'active' : ''}" data-url="${car.url}" ${car.status === 'SOLD' || car.status === 'REMOVED' ? 'disabled' : ''}>
                             <i class="vote-icon">♥</i> ${hasVoted ? 'Voted' : 'Vote'}
                         </button>
+                        ${isFamily ? `
+                        <button class="btn-remove ${car.status === 'REMOVED' ? 'active' : ''}" data-url="${car.url}">
+                            ${car.status === 'REMOVED' ? 'Restore' : 'Remove'}
+                        </button>` : ''}
                     </div>
 
                     <a href="${car.url}" target="_blank" rel="noopener noreferrer" class="btn-view" style="margin-top: 1rem;">View Listing</a>
                 </div>
             `;
 
-            // Add listener to vote button if not sold
+            // Add listener to vote button if not sold/removed
             const voteBtn = card.querySelector('.btn-vote');
-            if (car.status !== 'SOLD') {
+            if (car.status !== 'SOLD' && car.status !== 'REMOVED') {
                 voteBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     toggleVote(car.url);
+                });
+            }
+
+            // Add listener to remove button if present
+            if (isFamily) {
+                const removeBtn = card.querySelector('.btn-remove');
+                removeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleRemove(car.url, car.status);
                 });
             }
 
@@ -766,7 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (mileage > maxMileage) return false;
             if (selectedModel && shortTitle !== selectedModel) return false;
             if (selectedEngine && car.engine_fuel !== selectedEngine) return false;
-            if (shouldHideSold && car.status === 'SOLD') return false;
+            if (shouldHideSold && (car.status === 'SOLD' || car.status === 'REMOVED')) return false;
             if (requireCarplay && car.has_carplay !== true) return false;
             if (requireRearCamera && car.has_rear_camera !== true) return false;
 

@@ -12,6 +12,7 @@
   --border-color: #e1e1e1;
   --success: #2ed573;
   --danger: #ff6b81;
+  --removed: #ff4757;
   --character-img: none;
   --btn-bg: #2F3542;
   --btn-text: #ffffff;
@@ -520,6 +521,28 @@ header {
   color: #fff;
 }
 
+.btn-remove {
+  background: none;
+  border: 2px solid #eee;
+  padding: 0.6rem 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-light);
+  transition: all 0.2s;
+}
+
+.btn-remove:hover {
+  border-color: var(--removed);
+  color: var(--removed);
+}
+
+.btn-remove.active {
+  background: var(--removed);
+  border-color: var(--removed);
+  color: #fff;
+}
+
 .card-voters {
   display: flex;
   gap: 4px;
@@ -828,31 +851,39 @@ input[type=range] {
   }
 }
 
-/* Sold States */
-.card.is-sold {
+/* Sold & Removed States */
+.card.is-sold,
+.card.is-removed {
   background: #f1f2f6;
-  /* Solid light grey background */
   border-color: #d1d8e0;
   opacity: 0.95;
 }
 
-.card.is-sold:hover {
+.card.is-sold:hover,
+.card.is-removed:hover {
   transform: translateY(-4px);
-  /* Smaller lift */
   border-color: #747d8c;
 }
 
-.card.is-sold .card-image {
+.card.is-sold .card-image,
+.card.is-removed .card-image {
   filter: grayscale(1);
   opacity: 0.7;
 }
 
 .card.is-sold .btn-vote,
-.card.is-sold .btn-view {
-  opacity: 0.5;
-  filter: grayscale(0.5);
+.card.is-removed .btn-vote {
+  background: #dfe4ea;
+  border-color: #ced6e0;
+  color: #a4b0be;
+  cursor: not-allowed;
   pointer-events: none;
-  /* Disable interaction */
+}
+
+.card.is-sold .btn-view,
+.card.is-removed .btn-view {
+  background: #ced6e0 !important;
+  pointer-events: none;
 }
 
 .card.is-sold .card-price {
@@ -892,6 +923,20 @@ input[type=range] {
   z-index: 2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background: var(--success);
+}
+
+.status-badge.sold {
+  background: var(--sold) !important;
+}
+
+.status-badge.removed {
+  background: var(--removed) !important;
+}
+
+.status-badge.new {
+  left: 1rem;
+  right: auto;
+  background: var(--new) !important;
 }
 
 /* Presence Card */
