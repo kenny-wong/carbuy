@@ -33,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLogin = document.getElementById('btn-login');
     const loginError = document.getElementById('login-error');
 
+    // Confirm Modal Elements
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmTitle = document.getElementById('confirm-title');
+    const confirmMessage = document.getElementById('confirm-message');
+    const btnConfirmCancel = document.getElementById('btn-confirm-cancel');
+    const btnConfirmProceed = document.getElementById('btn-confirm-proceed');
+    const confirmIcon = document.getElementById('confirm-icon');
+
     let lastOnlineUsers = []; // Track who is online for duplicate check
 
     // Member Config
@@ -342,16 +350,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function showConfirm({ title, message, icon = '⚠️' }) {
+        return new Promise((resolve) => {
+            confirmTitle.textContent = title;
+            confirmMessage.textContent = message;
+            confirmIcon.textContent = icon;
+            confirmModal.classList.add('active');
+
+            const cleanup = (result) => {
+                confirmModal.classList.remove('active');
+                btnConfirmCancel.removeEventListener('click', onCancel);
+                btnConfirmProceed.removeEventListener('click', onProceed);
+                resolve(result);
+            };
+
+            const onCancel = (e) => { e.preventDefault(); cleanup(false); };
+            const onProceed = (e) => { e.preventDefault(); cleanup(true); };
+
+            btnConfirmCancel.addEventListener('click', onCancel);
+            btnConfirmProceed.addEventListener('click', onProceed);
+        });
+    }
+
     async function toggleRemove(car_url, currentStatus) {
         const currentUser = localStorage.getItem('carbuy-user');
         if (!currentUser || !familyMembers[currentUser]) return;
 
-        const newStatus = currentStatus === 'REMOVED' ? 'Available' : 'REMOVED';
-        const confirmMsg = newStatus === 'REMOVED'
-            ? 'Are you sure you want to mark this car as REMOVED?'
-            : 'Bring this car back to Available?';
+        const isRemoving = currentStatus !== 'REMOVED';
+        const newStatus = isRemoving ? 'REMOVED' : 'Available';
 
-        if (!confirm(confirmMsg)) return;
+        const confirmed = await showConfirm({
+            title: isRemoving ? 'Mark as Removed?' : 'Restore Car?',
+            message: isRemoving
+                ? 'This car will be hidden from the main list. You can restore it later if needed.'
+                : 'This car will be visible to everyone again.',
+            icon: isRemoving ? '🗑️' : '♻️'
+        });
+
+        if (!confirmed) return;
 
         try {
             const response = await fetch('/api/update-car', {
