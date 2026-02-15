@@ -1718,3 +1718,86 @@ html {
     grid-template-columns: repeat(3, 1fr) !important;
   }
 }
+
+/* Confirmation Modal */
+.confirm-box {
+  max-width: 400px;
+  text-align: center;
+  padding: 2.5rem;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.confirm-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.confirm-box h2 {
+  color: var(--secondary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.confirm-box p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-cancel,
+.btn-proceed {
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.btn-cancel {
+  background: #f1f2f6;
+  color: var(--text-light);
+}
+
+.btn-cancel:hover {
+  background: #dfe4ea;
+  color: var(--secondary);
+}
+
+.btn-proceed {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-proceed:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+/* Theme adjustments for confirm box */
+[data-theme="xo"] .confirm-box {
+  border-color: var(--primary);
+}
+
+[data-theme="pochacco"] .confirm-box {
+  border-color: var(--primary);
+}
+
+[data-theme="kuromi"] .confirm-box {
+  border-color: var(--primary);
+}
+
+[data-theme="hello-kitty"] .confirm-box {
+  border-color: var(--primary);
+}
