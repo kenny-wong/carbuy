@@ -1,6 +1,6 @@
 {
     "name": "carbuy-api",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "API for Car Buying Dashboard",
     "main": "api/cars.js",
     "dependencies": {
