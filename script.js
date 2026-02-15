@@ -354,12 +354,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let lbDisplayTitle = 'Unknown Car';
             if (car) {
                 // Format: "2014 Honda Jazz (Price)"
-                const yearMatch = car.title.match(/^\d{4}/);
-                const year = yearMatch ? yearMatch[0] : '';
+                const year = car.year || '';
                 const withoutYear = car.title.replace(/^\d{4}\s+/, '');
                 const parts = withoutYear.split(' ');
                 const brandModel = parts.slice(0, 2).join(' ');
-                lbDisplayTitle = `${year} ${brandModel} (${car.price})`;
+                lbDisplayTitle = `${year ? year + ' ' : ''}${brandModel} (${car.price})`;
             }
             return {
                 url,
@@ -672,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="card-content">
-                    <h2 class="card-title">${shortTitle}</h2>
+                    <h2 class="card-title">${car.year ? car.year + ' ' : ''}${shortTitle}</h2>
                     <p class="card-description">${car.title}</p>
                     <div class="card-price">${car.price}</div>
                     
