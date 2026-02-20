@@ -1,5 +1,19 @@
 [
     {
+        "title": "2011 Nissan Cube 1.5 WELCAB AUTO FRESH IMPORT 5dr",
+        "price": "£6,999",
+        "mileage": "10,000 miles",
+        "transmission": "Automatic",
+        "engine_fuel": "1.5L Petrol",
+        "image_url": "https://m.atcdn.co.uk/a/media/w800/8d04f46913dd46dc8c8c29895aef8165.jpg",
+        "url": "https://www.autotrader.co.uk/car-details/202508195569077",
+        "created_at": "2026-02-20T00:44:54Z",
+        "year": "2011",
+        "has_carplay": false,
+        "has_rear_camera": false,
+        "horsepower": 109
+    },
+    {
         "title": "Vauxhall Corsa 1.4 16V SE Auto Euro 5 5dr",
         "price": "£5,995",
         "mileage": "9,860 miles",
