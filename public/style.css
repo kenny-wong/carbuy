@@ -526,9 +526,11 @@ header {
 .btn-remove {
   background: none;
   border: 2px solid #eee;
-  padding: 0.6rem 1rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 30px;
   cursor: pointer;
+  font-family: inherit;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-light);
   transition: all 0.2s;
@@ -786,18 +788,18 @@ input[type=range] {
 /* Listings Grid */
 .listings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 3rem;
-  /* significantly more space between cards */
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.25rem;
+  /* compact grid: more cars per screen */
   align-items: stretch;
 }
 
 /* Card Styles */
 .card {
   background: var(--card-bg);
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
   border: 2px solid transparent;
   display: flex;
@@ -807,8 +809,8 @@ input[type=range] {
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
   border-color: var(--primary);
 }
 
@@ -894,7 +896,7 @@ input[type=range] {
 }
 
 .card-image-wrapper {
-  height: 220px;
+  height: 150px;
   overflow: hidden;
   position: relative;
   background: #f1f2f6;
@@ -910,6 +912,11 @@ input[type=range] {
 
 .card:hover .card-image {
   transform: scale(1.05);
+}
+
+/* Placeholder blends into the wrapper background instead of being cropped */
+.card-image[src$="no-photo.svg"] {
+  object-fit: contain;
 }
 
 .status-badge {
@@ -990,52 +997,54 @@ input[type=range] {
 }
 
 .card-content {
-  padding: 2rem;
-  /* more padding inside cards */
+  padding: 0.9rem 1rem 1rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
   color: var(--text-dark);
   line-height: 1.3;
 }
 
 .card-description {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-light);
-  margin-bottom: 1rem;
-  line-height: 1.4;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+  /* keep long titles to two lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-price {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--primary);
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .specs-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-  /* Push button to bottom if brief is short */
+  gap: 0.25rem 0.6rem;
+  margin-bottom: 0.6rem;
 }
 
 .spec-item {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  font-size: 0.85rem;
+  gap: 0.4rem;
+  font-size: 0.78rem;
   color: var(--text-dark);
   font-weight: 500;
-  padding: 4px 0;
+  padding: 2px 0;
 }
 
 /* Horsepower Spec */
@@ -1109,30 +1118,30 @@ input[type=range] {
 
 /* Features Section on Cards */
 .features-section {
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 .features-divider {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--border-color), transparent);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .features-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .feature-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.35rem 0.75rem;
+  padding: 0.2rem 0.55rem;
   background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
   color: #2e7d32;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
@@ -1144,7 +1153,8 @@ input[type=range] {
   text-align: center;
   background: var(--btn-bg);
   color: var(--btn-text);
-  padding: 1rem;
+  padding: 0.6rem;
+  font-size: 0.9rem;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
@@ -1164,21 +1174,23 @@ input[type=range] {
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 0.6rem;
+  margin-top: auto;
+  /* Push actions + button to bottom so rows line up */
+  padding-top: 0.6rem;
 }
 
 .btn-vote {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
   border: 2px solid #e1e1e1;
   border-radius: 30px;
   background: transparent;
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-light);
   transition: all 0.3s ease;
@@ -1191,7 +1203,8 @@ input[type=range] {
 
 .btn-vote .vote-icon {
   font-style: normal;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1;
   transition: all 0.3s ease;
 }
 
@@ -1708,14 +1721,14 @@ html {
   }
 }
 
-/* Tablet screens - 3 columns */
+/* Tablet screens - 3+ columns */
 @media (min-width: 769px) and (max-width: 1100px) {
   .car-grid {
     grid-template-columns: repeat(3, 1fr) !important;
   }
 
   .listings-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
   }
 }
 
