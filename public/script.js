@@ -282,6 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') handleGuestLogin();
     });
 
+    // Shown when a car has no photo or its photo fails to load (e.g. expired Autotrader ad)
+    const NO_PHOTO = 'images/no-photo.svg';
+
     let allCars = [];
     let filteredCars = [];
     let allVotes = [];
@@ -684,7 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filteredCars.forEach(car => {
-            const image = car.image_url || 'https://via.placeholder.com/400x300?text=No+Image';
+            const image = car.image_url || NO_PHOTO;
             const carVotes = allVotes.filter(v => v.car_url === car.url);
             const currentUser = localStorage.getItem('carbuy-user');
             const hasVoted = carVotes.some(v => v.user_name === currentUser);
@@ -721,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-image-wrapper">
                     <span class="status-badge ${car.status === 'SOLD' ? 'sold' : ''} ${car.status === 'REMOVED' ? 'removed' : ''}">${car.status || 'Available'}</span>
                     ${isNew ? `<span class="status-badge new">New: ${relativeDate}</span>` : ''}
-                    <img src="${image}" alt="${car.title}" class="card-image" loading="lazy">
+                    <img src="${image}" alt="${car.title}" class="card-image" loading="lazy" onerror="this.onerror=null; this.src='${NO_PHOTO}'">
                     <div class="card-voters-overlay">
                         ${carVotes.map(v => {
                 const icon = getUserIcon(v.user_name);

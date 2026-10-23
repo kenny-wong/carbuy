@@ -35,7 +35,17 @@ For each Autotrader URL, use the **browser subagent** or **MCP Chrome tools** to
 - **Features**: Search for "CarPlay" and "Rear Camera" or "Reverse Camera" in the "Features" or "Extra features" section.
 - For the image, look for the main car photo `<img>` tag. Use the highest resolution variant (w800 preferred).
 
-## 2. Update `public/car_data.json`
+## 2. Save the Photo Locally
+
+Autotrader deletes photos when an ad expires, so keep our own copy. Name it after the listing ID (last URL segment, no query params):
+```powershell
+curl.exe -sfL -o public/images/cars/<listing_id>.jpg "<autotrader image url>"
+```
+- Example: `public/images/cars/202601269428585.jpg`
+- Check the file is a real JPEG (not empty / not Autotrader's `no_image.png`).
+- Use `images/cars/<listing_id>.jpg` as the car's `image_url` in the next steps.
+
+## 3. Update `public/car_data.json`
 
 - File: `public/car_data.json` (fallback copy used when the API is unavailable)
 - **Prepend** new car objects to the **beginning** of the JSON array (so they appear first when sorted by date).
@@ -53,7 +63,7 @@ For each Autotrader URL, use the **browser subagent** or **MCP Chrome tools** to
     "horsepower": 99,
     "has_carplay": false,
     "has_rear_camera": true,
-    "image_url": "https://m.atcdn.co.uk/a/media/w800/064bbbd1db474abd8207aa3c128a2b0d.jpg",
+    "image_url": "images/cars/202601269428585.jpg",
     "url": "http://www.autotrader.co.uk/car-details/202601269428585",
     "created_at": "2026-02-12T12:00:00Z"
 }
@@ -61,7 +71,7 @@ For each Autotrader URL, use the **browser subagent** or **MCP Chrome tools** to
 
 - **Important**: Ensure valid JSON — commas between objects, no trailing commas.
 
-## 3. Create D1 Migration
+## 4. Create D1 Migration
 
 // turbo-all
 
@@ -85,7 +95,7 @@ INSERT INTO cars (title, price, mileage, transmission, engine_fuel, year, horsep
   99,
   0,
   1,
-  'https://m.atcdn.co.uk/...',
+  'images/cars/202601269428585.jpg',
   'http://www.autotrader.co.uk/car-details/...',
   '2026-02-12T12:00:00Z'
 );
@@ -99,7 +109,7 @@ npm run db:migrate
 ```
    - Expect the new migration to show ✅.
 
-## 4. Deploy & Git Push
+## 5. Deploy & Git Push
 
 // turbo-all
 
@@ -117,6 +127,6 @@ Replace `<N>` with the number of new cars added.
 
 3. Verify the new cars appear at [https://carbuy.pages.dev](https://carbuy.pages.dev).
 
-## 5. Report
+## 6. Report
 
 - Report the results to the user in a summary table.

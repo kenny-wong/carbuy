@@ -34,7 +34,7 @@ Wrangler must be logged in (`npx wrangler whoami`). Port 8788 may already be use
 ## Car data workflows
 
 Routine data maintenance is defined in `.agent/workflows/` — follow them when asked to add, delete, mark sold, or refresh features of cars:
-- `add-cars.md` — scrape Autotrader UK URL(s) for title, price (with `£`), mileage, transmission, engine_fuel, year, horsepower (int), has_carplay, has_rear_camera, image_url (`m.atcdn.co.uk`, w800); **prepend** to `public/car_data.json`; write the INSERT in a new D1 migration using the same `created_at`; `npm run db:migrate`; `npm run deploy`; commit "Add N new car listings" and push.
+- `add-cars.md` — scrape Autotrader UK URL(s) for title, price (with `£`), mileage, transmission, engine_fuel, year, horsepower (int), has_carplay, has_rear_camera, image_url (download to `public/images/cars/<listing_id>.jpg` and reference that path, since Autotrader deletes photos when ads expire); **prepend** to `public/car_data.json`; write the INSERT in a new D1 migration using the same `created_at`; `npm run db:migrate`; `npm run deploy`; commit "Add N new car listings" and push.
 - `delete-car.md` (also deletes the car's votes), `update-car-status.md` (sets `status = 'SOLD'` and deletes that car's votes), `update-car-features.md`.
 
 ## Conventions
