@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>程晞大家庭 - 買車 v1.4.3</title>
+    <title>程晞大家庭 - 買車 v1.5.0</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
             <div class="header-content">
                 <div class="header-controls">
                     <div class="title-area">
-                        <h1 id="main-title">程晞大家庭 - 買車 <span class="app-version">v1.4.3</span></h1>
+                        <h1 id="main-title">程晞大家庭 - 買車 <span class="app-version">v1.5.0</span></h1>
                         <div class="user-display" id="user-display" style="display: none;">
                             <div class="user-icon-wrapper">
                                 <img id="user-icon" src="" alt="" class="user-icon-small">
@@ -32,7 +32,8 @@
                     </div>
                     <div class="theme-selector">
                         <label for="theme-select" id="theme-label">Theme:</label>
-                        <select id="theme-select" class="theme-dropdown">
+                        <span class="theme-icon" aria-hidden="true">🎨</span>
+                        <select id="theme-select" class="theme-dropdown" aria-label="Theme">
                             <option value="original">Original Theme</option>
                             <option value="xo">XO (Bad Badtz-Maru)</option>
                             <option value="pochacco">Pochacco</option>
@@ -61,88 +62,97 @@
             </aside>
 
             <main class="main-content">
-                <section class="filter-bar">
-                    <div class="filter-group">
-                        <label for="model-filter">Model</label>
-                        <div class="select-wrapper">
-                            <select id="model-filter">
-                                <option value="">All Models</option>
-                            </select>
-                        </div>
-                    </div>
+                <section class="filter-bar" id="filter-bar">
+                    <!-- Phone only: collapsed filter bar with result summary -->
+                    <button type="button" class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel">
+                        <span class="filter-toggle-label">⚙️ Filters <span class="filter-count" id="filter-count" hidden></span></span>
+                        <span class="results-summary" id="results-summary"></span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
 
-                    <div class="filter-group">
-                        <label for="engine-filter">Engine</label>
-                        <div class="select-wrapper">
-                            <select id="engine-filter">
-                                <option value="">All Engines</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="sort-by">Sort By</label>
-                        <div class="select-wrapper">
-                            <select id="sort-by">
-                                <option value="date-desc" selected>Date: Newest</option>
-                                <option value="date-asc">Date: Oldest</option>
-                                <option value="model-asc">Model: A-Z</option>
-                                <option value="price-asc">Price: Low to High</option>
-                                <option value="price-desc">Price: High to Low</option>
-                                <option value="mileage-asc">Mileage: Low to High</option>
-                                <option value="mileage-desc">Mileage: High to Low</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label>Features</label>
-                        <div class="features-dropdown" id="features-dropdown">
-                            <button type="button" class="features-dropdown-toggle" id="features-toggle">
-                                Any <span class="dropdown-arrow">▼</span>
-                            </button>
-                            <div class="features-dropdown-menu" id="features-menu">
-                                <label class="features-option">
-                                    <input type="checkbox" id="filter-carplay" value="carplay">
-                                    <span>🎵 Apple CarPlay</span>
-                                </label>
-                                <label class="features-option">
-                                    <input type="checkbox" id="filter-rear-camera" value="rear_camera">
-                                    <span>📷 Rear Camera</span>
-                                </label>
+                    <div class="filter-panel" id="filter-panel">
+                        <div class="filter-group">
+                            <label for="model-filter">Model</label>
+                            <div class="select-wrapper">
+                                <select id="model-filter">
+                                    <option value="">All Models</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="filter-group checkbox-group">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="hide-sold-filter" checked>
-                            <span class="checkbox-label">Hide Sold/Removed</span>
-                        </label>
-                    </div>
-
-                    <div class="filter-group checkbox-group">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="my-votes-filter">
-                            <span class="checkbox-label">My Votes</span>
-                        </label>
-                    </div>
-
-                    <div class="range-filters-container">
-                        <div class="filter-group range-group">
-                            <div class="range-header">
-                                <label>Max Price</label>
-                                <span id="price-display">£10,000</span>
+                        <div class="filter-group">
+                            <label for="engine-filter">Engine</label>
+                            <div class="select-wrapper">
+                                <select id="engine-filter">
+                                    <option value="">All Engines</option>
+                                </select>
                             </div>
-                            <input type="range" id="price-range" min="0" max="20000" step="100">
                         </div>
 
-                        <div class="filter-group range-group">
-                            <div class="range-header">
-                                <label>Max Mileage</label>
-                                <span id="mileage-display">100k miles</span>
+                        <div class="filter-group">
+                            <label for="sort-by">Sort By</label>
+                            <div class="select-wrapper">
+                                <select id="sort-by">
+                                    <option value="date-desc" selected>Date: Newest</option>
+                                    <option value="date-asc">Date: Oldest</option>
+                                    <option value="model-asc">Model: A-Z</option>
+                                    <option value="price-asc">Price: Low to High</option>
+                                    <option value="price-desc">Price: High to Low</option>
+                                    <option value="mileage-asc">Mileage: Low to High</option>
+                                    <option value="mileage-desc">Mileage: High to Low</option>
+                                </select>
                             </div>
-                            <input type="range" id="mileage-range" min="0" max="150000" step="1000">
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Features</label>
+                            <div class="features-dropdown" id="features-dropdown">
+                                <button type="button" class="features-dropdown-toggle" id="features-toggle">
+                                    Any <span class="dropdown-arrow">▼</span>
+                                </button>
+                                <div class="features-dropdown-menu" id="features-menu">
+                                    <label class="features-option">
+                                        <input type="checkbox" id="filter-carplay" value="carplay">
+                                        <span>🎵 Apple CarPlay</span>
+                                    </label>
+                                    <label class="features-option">
+                                        <input type="checkbox" id="filter-rear-camera" value="rear_camera">
+                                        <span>📷 Rear Camera</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-group checkbox-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="hide-sold-filter" checked>
+                                <span class="checkbox-label">Hide Sold/Removed</span>
+                            </label>
+                        </div>
+
+                        <div class="filter-group checkbox-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="my-votes-filter">
+                                <span class="checkbox-label">My Votes</span>
+                            </label>
+                        </div>
+
+                        <div class="range-filters-container">
+                            <div class="filter-group range-group">
+                                <div class="range-header">
+                                    <label>Max Price</label>
+                                    <span id="price-display">£10,000</span>
+                                </div>
+                                <input type="range" id="price-range" min="0" max="20000" step="100">
+                            </div>
+
+                            <div class="filter-group range-group">
+                                <div class="range-header">
+                                    <label>Max Mileage</label>
+                                    <span id="mileage-display">100k miles</span>
+                                </div>
+                                <input type="range" id="mileage-range" min="0" max="150000" step="1000">
+                            </div>
                         </div>
                     </div>
                 </section>
