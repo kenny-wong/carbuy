@@ -29,6 +29,7 @@ Wrangler must be logged in (`npx wrangler whoami`). Port 8788 may already be use
 - **All schema and data changes go through D1 migrations** in `migrations/` (`NNNN_<description>.sql`, created via `wrangler d1 migrations create`). `0001` is the schema, `0002` seeds cars from `car_data.json`.
 - **Mock data only when the API is down**: `script.js` injects fake votes and online users only if the API request fails (e.g. plain static preview), never when the API returns empty results.
 - **Auth is client-side only**: `familyMembers` in `script.js` maps each name to a "secret" phrase and theme; guests enter a name. Identity is stored in `localStorage` (`carbuy-user`, `carbuy-theme`, `carbuy-guest`) and sent as `user_name` in API bodies. The family list is duplicated in `functions/api/update-car.js`.
+- **Phone layout (≤768px)** lives in the last `@media` block of `style.css`: filter groups are wrapped in `.filter-panel`, which is `display: contents` on wider screens (so desktop lays them out directly in `.filter-bar`) and a collapsible 2-column grid on phones behind `#filter-toggle`, which also shows the result summary and active-filter count. The header `.stats` box is hidden on phones, and the theme `<select>` becomes a transparent overlay on a 🎨 button.
 - **Themes** (`original`, `xo`, `pochacco`, `kuromi`, `hello-kitty`, `badminton`) are CSS-variable sets in `style.css`, with character images in `public/images/`.
 
 ## Car data workflows

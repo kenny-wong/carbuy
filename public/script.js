@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const featuresToggle = document.getElementById('features-toggle');
     const featuresMenu = document.getElementById('features-menu');
     const featuresDropdown = document.getElementById('features-dropdown');
+    const filterBar = document.getElementById('filter-bar');
+    const filterToggle = document.getElementById('filter-toggle');
+    const filterCount = document.getElementById('filter-count');
+    const resultsSummary = document.getElementById('results-summary');
     const myVotesFilter = document.getElementById('my-votes-filter');
     const themeSelect = document.getElementById('theme-select');
     const leaderboardList = document.getElementById('leaderboard-list');
@@ -816,6 +820,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="stat-label">Avg. Price</span>
             </div>
         `;
+
+        // Phone filter bar summary
+        resultsSummary.textContent = total > 0
+            ? `${total} car${total === 1 ? '' : 's'} · avg £${avgPrice.toLocaleString()}`
+            : 'No cars';
+        updateFilterCount();
+    }
+
+    // Number of filters changed from their defaults (shown on the phone filter bar)
+    function updateFilterCount() {
+        // Range values snap to their step, so "at max" means within one step of max
+        const belowMax = range => Number(range.value) + Number(range.step) <= Number(range.max);
+        const active = [
+            modelFilter.value,
+            engineFilter.value,
+            filterCarplay.checked,
+            filterRearCamera.checked,
+            myVotesFilter.checked,
+            !hideSoldFilter.checked,
+            belowMax(priceRange),
+            belowMax(mileageRange)
+        ].filter(Boolean).length;
+
+        filterCount.textContent = active;
+        filterCount.hidden = active === 0;
     }
 
     // Filter & Sort Logic
@@ -908,6 +937,12 @@ document.addEventListener('DOMContentLoaded', () => {
     filterCarplay.addEventListener('change', () => { updateFeaturesLabel(); applyFilters(); });
     filterRearCamera.addEventListener('change', () => { updateFeaturesLabel(); applyFilters(); });
     myVotesFilter.addEventListener('change', applyFilters);
+
+    // Phone: expand/collapse the filter panel
+    filterToggle.addEventListener('click', () => {
+        const open = filterBar.classList.toggle('open');
+        filterToggle.setAttribute('aria-expanded', open);
+    });
 
     // Features dropdown toggle
     featuresToggle.addEventListener('click', (e) => {
