@@ -1,6 +1,6 @@
 {
     "name": "carbuy",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "private": true,
     "description": "Family Car Buying Dashboard (Cloudflare Pages + D1)",
     "scripts": {

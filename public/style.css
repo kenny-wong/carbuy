@@ -560,6 +560,8 @@ header {
   .sidebar {
     width: 100%;
     position: static;
+    /* In the stacked layout the 340px flex-basis would become height */
+    flex: 0 0 auto;
   }
 }
 
@@ -1303,6 +1305,7 @@ html {
 
   .app-layout {
     gap: 0.8rem;
+    margin-top: 1.2rem;
   }
 
   /* Fix header layout on mobile */
