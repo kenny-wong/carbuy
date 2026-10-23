@@ -773,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </button>` : ''}
                     </div>
 
-                    <a href="${car.url}" target="_blank" rel="noopener noreferrer" class="btn-view" style="margin-top: 1rem;">View Listing</a>
+                    <a href="${car.url}" target="_blank" rel="noopener noreferrer" class="btn-view" style="margin-top: 0.6rem;">View Listing</a>
                 </div>
             `;
 
