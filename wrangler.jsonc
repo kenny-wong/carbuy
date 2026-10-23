@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "carbuy",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-10-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "carbuy",
+      "database_id": "9e0b13cf-9bde-444d-9f09-1eb4a20bf893",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

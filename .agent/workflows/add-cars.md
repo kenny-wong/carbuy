@@ -1,5 +1,6 @@
 ---
-description: Add new car listings from Autotrader URLs to the app and Supabase database
+name: add-cars
+description: Add new car listings from Autotrader URLs to the app and Cloudflare D1 database
 ---
 
 # Add New Cars Workflow
@@ -34,11 +35,11 @@ For each Autotrader URL, use the **browser subagent** or **MCP Chrome tools** to
 - **Features**: Search for "CarPlay" and "Rear Camera" or "Reverse Camera" in the "Features" or "Extra features" section.
 - For the image, look for the main car photo `<img>` tag. Use the highest resolution variant (w800 preferred).
 
-## 2. Update `car_data.json`
+## 2. Update `public/car_data.json`
 
-- File: `c:\Users\kaiya\github\carbuy\car_data.json`
+- File: `public/car_data.json` (fallback copy used when the API is unavailable)
 - **Prepend** new car objects to the **beginning** of the JSON array (so they appear first when sorted by date).
-- Set `created_at` to today's date in ISO format, e.g. `"2026-02-12T12:00:00Z"`.
+- Set `created_at` to the current time in ISO format, e.g. `"2026-02-12T12:00:00Z"`.
 - Format each object like this:
 
 ```json
@@ -60,11 +61,17 @@ For each Autotrader URL, use the **browser subagent** or **MCP Chrome tools** to
 
 - **Important**: Ensure valid JSON — commas between objects, no trailing commas.
 
-## 3. Generate SQL Script
+## 3. Create D1 Migration
 
-- File: `c:\Users\kaiya\github\carbuy\update_cars.sql`
-- **Overwrite** the file with a new INSERT statement for the new cars only.
-- Use this exact table schema:
+// turbo-all
+
+1. Create a new migration file (Wrangler numbers it automatically):
+```powershell
+npx wrangler d1 migrations create carbuy add_<description>
+```
+   - Example: `npx wrangler d1 migrations create carbuy add_honda_jazz` → `migrations/0003_add_honda_jazz.sql`
+
+2. Fill it with an INSERT for the new cars only. D1 is SQLite: booleans are `1`/`0`, and use the **same** `created_at` string as in `car_data.json`:
 
 ```sql
 INSERT INTO cars (title, price, mileage, transmission, engine_fuel, year, horsepower, has_carplay, has_rear_camera, image_url, url, created_at) VALUES
@@ -76,53 +83,40 @@ INSERT INTO cars (title, price, mileage, transmission, engine_fuel, year, horsep
   '1.4L Petrol',
   '2014',
   99,
-  false,
-  true,
+  0,
+  1,
   'https://m.atcdn.co.uk/...',
   'http://www.autotrader.co.uk/car-details/...',
-  NOW()
+  '2026-02-12T12:00:00Z'
 );
 ```
 
-- For multiple cars, separate each VALUES group with a comma. Only the last one gets a semicolon.
+- For multiple cars, separate each VALUES group with a comma. Only the last one gets a semicolon. Escape `'` in titles as `''`.
 
-## 4. Push to Supabase Database (Migration)
-
-// turbo-all
-
-1. Create a new migration file in `supabase/migrations/` with timestamp naming:
-   - Format: `YYYYMMDDHHMMSS_add_<description>.sql`
-   - Example: `20260213011000_add_honda_jazz.sql`
-
-2. Copy the INSERT SQL from `update_cars.sql` into the migration file.
-
-3. Push the migration:
+3. Apply the migration to the production database:
 ```powershell
-$env:SUPABASE_DB_PASSWORD = "Hk049866!!!!!"; npx supabase db push
+npm run db:migrate
 ```
-   - Confirm with `Y` when prompted.
-   - Expect: `Applying migration ... Finished supabase db push.`
+   - Expect the new migration to show ✅.
 
-## 5. Git Push & Verify Vercel Deploy
+## 4. Deploy & Git Push
 
 // turbo-all
 
-1. Push to GitHub:
+1. Deploy to Cloudflare Pages:
+```powershell
+npm run deploy
+```
+   - Expect: `Deployment complete!`
+
+2. Push to GitHub:
 ```powershell
 git add . ; git commit -m "Add <N> new car listings" ; git push
 ```
 Replace `<N>` with the number of new cars added.
 
-2. Wait 30 seconds for Vercel to pick up the deploy, then check status:
-```powershell
-npx vercel ls --token $env:VERCEL_TOKEN 2>$null ; npx vercel inspect --token $env:VERCEL_TOKEN 2>$null
-```
-Or simply:
-```powershell
-npx vercel ls carbuy
-```
-Confirm the latest deployment shows **"Ready"** status.
+3. Verify the new cars appear at [https://carbuy.pages.dev](https://carbuy.pages.dev).
 
-## 6. Report
+## 5. Report
 
 - Report the results to the user in a summary table.

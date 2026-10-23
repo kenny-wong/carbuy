@@ -2,9 +2,9 @@
 
 A premium, interactive dashboard for the family to browse, filter, vote on, and discover car listings together. Features Sanrio character themes, real-time user presence, a voting leaderboard, and smooth micro-animations throughout.
 
-**🔗 Live Site**: [https://carbuy-chi.vercel.app](https://carbuy-chi.vercel.app)
+**🔗 Live Site**: [https://carbuy.pages.dev](https://carbuy.pages.dev)
 
-**Current Version**: `v1.3.0` (Managed via `.cursorrules`)
+**Current Version**: `v1.4.0` (Managed via `.cursorrules`)
 
 ---
 
@@ -69,9 +69,9 @@ Top Rated + Online Now sections appear above filters on mobile.
 | Layer | Technology |
 |---|---|
 | **Frontend** | HTML5, Vanilla CSS (CSS Variables), Vanilla JavaScript (ES6+) |
-| **Backend** | Node.js Serverless Functions (Vercel) |
-| **Database** | Supabase (PostgreSQL) with Supabase CLI migrations |
-| **Hosting** | Vercel (auto-deploy from GitHub) |
+| **Backend** | Cloudflare Pages Functions (`functions/api/`) |
+| **Database** | Cloudflare D1 (SQLite) with Wrangler migrations |
+| **Hosting** | Cloudflare Pages (direct upload via `npm run deploy`) |
 | **Fonts** | [Outfit](https://fonts.google.com/specimen/Outfit) + [Noto Sans TC](https://fonts.google.com/specimen/Noto+Sans+TC) |
 
 ---
@@ -80,38 +80,26 @@ Top Rated + Online Now sections appear above filters on mobile.
 
 ```
 carbuy/
-├── index.html                 # Main HTML page with versioning display
-├── style.css                  # All styles + themes + responsive breakpoints
-├── script.js                  # Client logic (filters, votes, presence, guest login)
-├── car_data.json              # Car listing data (JSON) - source of truth for UI
-├── package.json               # Node.js deps + app version (v1.3.0)
-├── vercel.json                # Vercel routing configuration
+├── public/                    # Static site (the only folder uploaded to Pages)
+│   ├── index.html             # Main HTML page with versioning display
+│   ├── style.css              # All styles + themes + responsive breakpoints
+│   ├── script.js              # Client logic (filters, votes, presence, guest login)
+│   ├── car_data.json          # Fallback car data if the API is unavailable
+│   └── images/                # Character overlays + icons/ (user avatars)
 │
-├── api/                       # Vercel serverless functions
-│   ├── cars.js                # GET car listings from Supabase
+├── functions/api/             # Cloudflare Pages Functions (D1 bound as env.DB)
+│   ├── cars.js                # GET car listings
 │   ├── votes.js               # GET/POST votes (toggle per user)
 │   ├── presence.js            # GET online users / POST heartbeat
-│   └── audit.js               # POST entrance logs
+│   ├── audit.js               # POST entrance logs
+│   └── update-car.js          # POST status change (family only)
 │
-├── images/
-│   ├── xo.png / pochacco.png   # Character full-body overlays
-│   ├── badminton.png          # Guest theme shuttlecock
-│   └── icons/                 # User avatar icons
-│
-├── sql/
-│   ├── schema.sql             # Full database schema
-│   └── ...                    # Manual update scripts
-│
-├── supabase/
-│   └── migrations/            # CLI migration files for schema changes
-│       ├── ...
-│       ├── 20260214164000_update_car_features_bulk.sql
-│       └── 20260214165700_add_horsepower.sql
+├── migrations/                # D1 migrations (schema + data changes)
+├── wrangler.jsonc             # Pages + D1 configuration
+├── package.json               # Scripts + app version (v1.4.0)
 │
 └── .agent/
-    └── workflows/             # AI automation guides
-        ├── add-cars.md        
-        └── update-car-status.md
+    └── workflows/             # AI automation guides (add/delete/status/features)
 ```
 
 ---
@@ -122,19 +110,28 @@ carbuy/
 ```bash
 git clone https://github.com/kenny-wong/carbuy.git
 npm install
-npx vercel env pull .env.local  # Get staging/prod keys
+npx wrangler login              # once, to access the Cloudflare account
+npm run db:migrate:local        # create + seed the local D1 database
 ```
 
 ### Run Locally
 ```bash
-npx vercel dev   # Full stack (localhost:3000)
+npm run dev      # Full stack incl. /api and local D1 (localhost:8788)
 ```
+
+### Database & Deploy
+```bash
+npx wrangler d1 migrations create carbuy <name>   # new migration file
+npm run db:migrate                                # apply migrations to production D1
+npm run deploy                                    # deploy public/ + functions/ to Pages
+```
+Pushing to GitHub does **not** deploy — run `npm run deploy`.
 
 ---
 
 ## 📦 Data Structure
 
-Each car in `car_data.json` now supports rich feature metadata:
+Each car (D1 `cars` table / `public/car_data.json`) supports rich feature metadata:
 
 ```json
 {
@@ -160,7 +157,10 @@ Each car in `car_data.json` now supports rich feature metadata:
 This project is AI-native, utilizing automated workflows in `.agent/workflows/`:
 
 ### `/add-cars`
-AI scrapes Autotrader UK, extracts HP data using model search, updates `car_data.json`, and pushes database migrations.
+AI scrapes Autotrader UK, extracts HP data using model search, updates `car_data.json`, applies a D1 migration, and deploys.
+
+### `/delete-car`
+Removes a listing (and its votes) from `car_data.json` and D1.
 
 ### `/update-car-status`
 AI validates listing status via web checks, marks cars as **SOLD** in the DB, and removes vote counts for stale listings.
