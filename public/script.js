@@ -308,19 +308,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchVotes() {
+        let apiAvailable = false;
         try {
             const response = await fetch('/api/votes');
             if (response.ok) {
-                const realVotes = await response.json();
-                allVotes = realVotes;
+                allVotes = await response.json();
+                apiAvailable = true;
             }
         } catch (error) {
             console.warn('Failed to fetch votes, using mock logic');
         }
 
         // --- MOCK INJECTION START ---
-        // Always add mock votes if list is empty or for demo
-        if (allVotes.length === 0 && allCars.length > 0) {
+        // Only use mock votes when the API is unreachable (e.g. static preview)
+        if (!apiAvailable && allCars.length > 0) {
             allVotes = getMockVotes(allCars);
         }
         // --- MOCK INJECTION END ---
@@ -517,21 +518,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.warn('Failed to fetch presence');
         }
-        // Fallback or Mock
-        renderPresence([]);
+        // --- MOCK INJECTION START ---
+        // API unreachable (e.g. static preview): show mock users
+        renderPresence([
+            { user_name: 'Gubie' },
+            { user_name: 'Chloe' }
+        ]);
+        // --- MOCK INJECTION END ---
     }
 
     function renderPresence(users) {
-        // --- MOCK INJECTION START ---
-        // Verify if we have users, if not (local dev), inject mocks
-        let displayUsers = [...users];
-        if (displayUsers.length === 0) {
-            displayUsers = [
-                { user_name: 'Gubie' },
-                { user_name: 'Chloe' }
-            ];
-        }
-        // --- MOCK INJECTION END ---
+        const displayUsers = [...users];
 
         if (!presenceList) return;
 
@@ -927,9 +924,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start App
     init();
 
-    // Initial presence fetch and heartbeat if logged in
-    fetchPresence();
-    if (localStorage.getItem('carbuy-user')) {
-        sendHeartbeat();
-    }
+    // Initial heartbeat (if logged in) then presence fetch, so you show as online straight away
+    sendHeartbeat().finally(fetchPresence);
 });
