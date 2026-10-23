@@ -4,7 +4,7 @@ A premium, interactive dashboard for the family to browse, filter, vote on, and 
 
 **🔗 Live Site**: [https://carbuy.pages.dev](https://carbuy.pages.dev)
 
-**Current Version**: `v1.4.0` (Managed via `.cursorrules`)
+**Current Version**: `v1.4.1` (Managed via `.cursorrules`)
 
 ---
 
@@ -96,7 +96,7 @@ carbuy/
 │
 ├── migrations/                # D1 migrations (schema + data changes)
 ├── wrangler.jsonc             # Pages + D1 configuration
-├── package.json               # Scripts + app version (v1.4.0)
+├── package.json               # Scripts + app version (v1.4.1)
 │
 └── .agent/
     └── workflows/             # AI automation guides (add/delete/status/features)
