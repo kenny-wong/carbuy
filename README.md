@@ -4,14 +4,14 @@ A premium, interactive dashboard for the family to browse, filter, vote on, and 
 
 **🔗 Live Site**: [https://carbuy.pages.dev](https://carbuy.pages.dev)
 
-**Current Version**: `v1.5.0` (Managed via `.cursorrules`)
+**Current Version**: `v1.5.0`
 
 ---
 
 ## 🌟 Features
 
 ### 🚗 Car Listings
-- **Dynamic Data**: Fetches listings from Supabase (PostgreSQL) in real time.
+- **Dynamic Data**: Fetches listings from the site's own API, backed by a Cloudflare D1 database.
 - **Smart Filtering**: 
     - **Specs**: Model, Engine type, Max Price (slider), and Max Mileage (slider).
     - **Features**: Multi-select filter for **Apple CarPlay** and **Rear Camera** availability.
@@ -50,7 +50,7 @@ Each theme includes a full-body character overlay, matching colour palette, and 
 - **Guest Access**: New mode for visitors:
     - Custom guest name entry.
 - **Personalised**: Auto-applies the member's theme and avatar on login.
-- **Audit Logging**: All entrance activity is logged to Supabase for analytics.
+- **Audit Logging**: All entrance activity is logged to the database for analytics.
 
 ### 📱 Responsive Design
 | Breakpoint | Layout |
@@ -96,10 +96,7 @@ carbuy/
 │
 ├── migrations/                # D1 migrations (schema + data changes)
 ├── wrangler.jsonc             # Pages + D1 configuration
-├── package.json               # Scripts + app version (v1.5.0)
-│
-└── .agent/
-    └── workflows/             # AI automation guides (add/delete/status/features)
+└── package.json               # Scripts + app version (v1.5.0)
 ```
 
 ---
@@ -152,21 +149,14 @@ Each car (D1 `cars` table / `public/car_data.json`) supports rich feature metada
 
 ---
 
-## 🤖 AI Workflows
+## 🔧 Maintaining Car Data
 
-This project is AI-native, utilizing automated workflows in `.agent/workflows/`:
+Every change to the car list is made in both places — `public/car_data.json` and a new D1 migration — then applied with `npm run db:migrate` and published with `npm run deploy`.
 
-### `/add-cars`
-AI scrapes Autotrader UK, extracts HP data using model search, updates `car_data.json`, applies a D1 migration, and deploys.
-
-### `/delete-car`
-Removes a listing (and its votes) from `car_data.json` and D1.
-
-### `/update-car-status`
-AI validates listing status via web checks, marks cars as **SOLD** in the DB, and removes vote counts for stale listings.
-
-### `/update-car-features`
-Bulk check and update for specialized features like CarPlay and Rear Camera.
+- **Add cars**: copy the details from the Autotrader UK listing (title, price, mileage, transmission, engine, year, horsepower, CarPlay, rear camera), save the photo to `public/images/cars/<listing_id>.jpg` (Autotrader removes photos when an ad expires), and add the car to the top of `car_data.json`.
+- **Delete a car**: remove the listing and its votes.
+- **Mark sold**: check the listing, set its status to **SOLD**, and remove its votes.
+- **Update features**: correct the CarPlay and rear camera details.
 
 ---
 

@@ -420,8 +420,6 @@ FodyWeavers.xsd
 supabase/*
 !supabase/migrations/
 .env*
-.agent
-.cursorrules
 # Cloudflare Wrangler
 .wrangler/
 .dev.vars*
